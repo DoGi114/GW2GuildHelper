@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GW2GuildHelper - Register</title>
-</head>
+<head th:replace="/app/fragments/head::template">
 <body>
     <h1>Register</h1>
     <form name='registerForm' enctype="multipart/form-data" action="/register" method='POST'>

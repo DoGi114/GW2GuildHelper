@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GW2GuildHelper - Settings</title>
-</head>
+<head th:replace="/app/fragments/head::template">
+
 <body>
 <form method="POST" enctype="multipart/form-data" action="/settings">
     <p>Personal API:</p><input type="text" name="personal_api" th:value="${personal_api}">

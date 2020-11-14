@@ -28,13 +28,13 @@ public class SettingsService {
         try {
             PreparedStatement statement = conn.prepareStatement(statementString);
             ResultSet rs = statement.executeQuery();
+            //TODO: Check resultset if has items
             rs.next();
             return rs.getString(1);
         } catch (SQLException throwables) {
             LOGGER.error("Cant perform statement {}", statementString);
-            throwables.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     public String getGuildApi(){
@@ -42,13 +42,13 @@ public class SettingsService {
         try {
             PreparedStatement statement = conn.prepareStatement(statementString);
             ResultSet rs = statement.executeQuery();
+            //TODO: Check resultset if has items
             rs.next();
             return rs.getString(1);
         } catch (SQLException throwables) {
             LOGGER.error("Cant perform statement {}", statementString);
-            throwables.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     private int getRecordsCount() throws SQLException {
