@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GW2GuildHelper - Settings</title>
+</head>
+<body>
+<form method="POST" enctype="multipart/form-data" action="/settings">
+    <p>Personal API:</p><input type="text" name="personal_api" th:value="${personal_api}">
+    <p>Guild API:</p><input type="text" name="guild_api" th:value="${guild_api}">
+    <input type="submit" value="Set">
+</form>
+</body>
+</html>

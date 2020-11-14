@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GW2GuildHelper - Login</title>
+</head>
+<body>
+<h1>Login</h1>
+<form name='loginForm' action="/login" method='POST'>
+    <table>
+        <tr>
+            <td>User:</td>
+            <td><input type='text' name='mail' value=''></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type='password' name='password' /></td>
+        </tr>
+        <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+            <td><a href="/register">Don't have account? Click here!</a></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
