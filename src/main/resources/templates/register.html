@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
-<head th:replace="/app/fragments/head::template">
+<html xmlns:th="https://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><head th:replace="/app/fragments/head::template">
 <body>
     <h1>Register</h1>
     <form name='registerForm' enctype="multipart/form-data" action="/register" method='POST'>
