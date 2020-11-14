@@ -1,6 +1,5 @@
 package com.damiannguyen.GW2GuildHelper.modules.users;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     BCryptPasswordEncoder encoder;
     @Autowired
@@ -22,21 +19,19 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(){
-        LOGGER.info("register");
-
         return "register";
     }
 
     @PostMapping("/register")
     public String register(
-            @RequestParam("email") String email,
+            @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("password_confirm") String passwordConfirm
     ) {
 
         //TODO: Check passwords
-
-        repository.save(new User(email, encoder.encode(password)));
+        LoggerFactory.getLogger(UserController.class).info(username);
+        repository.save(new User(username, encoder.encode(password)));
 
 
         return "redirect:/app/welcome";
@@ -54,7 +49,7 @@ public class UserController {
     }
 
     @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
+    public String welcome() {
         return "/app/welcome";
     }
 
