@@ -5,7 +5,7 @@
 
 <body>
 <div th:replace="app/fragments/menu::template"></div>
-<a href="/app/settings">General</a>
+<!--<a href="/app/settings">General</a>-->
 <h2>API Settings</h2>
 <form method="POST" enctype="multipart/form-data" action="/app/settings/api">
     <p>Personal API:</p><input type="text" name="personal_api" th:value="${personal_api}">
