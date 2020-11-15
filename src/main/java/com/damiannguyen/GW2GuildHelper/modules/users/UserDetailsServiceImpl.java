@@ -1,6 +1,6 @@
 package com.damiannguyen.GW2GuildHelper.modules.users;
 
-import com.damiannguyen.GW2GuildHelper.modules.security.SecurityConfig;
+import org.apache.catalina.security.SecurityConfig;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,8 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet< >();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-
-        LoggerFactory.getLogger(SecurityConfig.class).info(user.toString());
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 grantedAuthorities);

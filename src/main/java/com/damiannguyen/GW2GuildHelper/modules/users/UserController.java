@@ -3,9 +3,8 @@ package com.damiannguyen.GW2GuildHelper.modules.users;
 
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
-import com.damiannguyen.GW2GuildHelper.modules.role.Role;
-import com.damiannguyen.GW2GuildHelper.modules.role.RoleRepository;
-import org.slf4j.LoggerFactory;
+import com.damiannguyen.GW2GuildHelper.modules.users.role.Role;
+import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -68,11 +67,6 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
-    }
-
-    @GetMapping({"/", "/welcome"})
-    public String welcome() {
-        return "/app/welcome";
     }
 
 }

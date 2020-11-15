@@ -1,4 +1,4 @@
-package com.damiannguyen.GW2GuildHelper.modules.role;
+package com.damiannguyen.GW2GuildHelper.modules.users.role;
 
 import javax.persistence.*;
 
