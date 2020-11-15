@@ -25,6 +25,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean("authenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -37,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .defaultSuccessUrl("/app/welcome", true)
                     .permitAll()
+                .and()
+                    .rememberMe()
+                    .key("uniqueAndSecret")
                 .and()
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //TODO: Not recommended

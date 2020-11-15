@@ -1,32 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><head th:replace="/app/fragments/head::template">
-<body>
-    <h1>Register</h1>
-    <form name='registerForm' enctype="multipart/form-data" action="/register" method='POST'>
-        <table>
-            <tr>
-                <td>User:</td>
-                <td><input type='text' name='username' ></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type='password' name='password'  /></td>
-            </tr>
-            <tr>
-                <td>Confirm password:</td>
-                <td><input type='password' name='password_confirm'  /></td>
-            </tr>
-            <tr>
-                <td>Guild full name:</td>
-                <td><input type='text' name='guild'  /></td>
-            </tr>
-            <tr>
-                <td><input name="submit" type="submit" value="Register"  /></td>
-            </tr>
-        </table>
-        <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
-    </form>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="/app/fragments/head::template">
+</head>
+<link type="text/css" href="/css/credentialsForm.css" rel="stylesheet">
+<body class="text-center">
+<form class="form-signin" name='registerForm' enctype="multipart/form-data" action="/register" method='POST'>
+    <!--    <img class="mb-4" src="./Signin Template · Bootstrap_files/bootstrap-solid.svg" alt="" width="72" height="72">-->
+    <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+    <label for="inputUser" class="sr-only">Login</label>
+    <input type="text" id="inputUser" name="username" class="form-control firstInput" placeholder="login" required="" autofocus="">
+    <label for="inputGuildName" class="sr-only">Guild name</label>
+    <input type="text" id="inputGuildName" name="guild" class="form-control input" placeholder="Guild name" required="">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" name="password" class="form-control input" placeholder="Password" required="">
+    <label for="inputPasswordConfirm" class="sr-only">Confirm password</label>
+    <input type="password" id="inputPasswordConfirm" name="passwordConfirm" class="form-control lastInput" placeholder="Confirm password" required="">
+    <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register!</button>
+    <p class="mt-5 mb-3 text-muted">© 2020-2021</p>
+</form>
 </body>
 </html>
