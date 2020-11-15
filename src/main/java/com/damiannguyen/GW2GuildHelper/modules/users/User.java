@@ -1,13 +1,21 @@
 package com.damiannguyen.GW2GuildHelper.modules.users;
 
+import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
+import com.damiannguyen.GW2GuildHelper.modules.role.Role;
+
 import javax.persistence.*;
 
-@Entity
-@Table(name = "users")
+@Entity(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
     private String password;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Guild guild;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Role role;
     @Transient
     private String passwordConfirm;
 
@@ -15,14 +23,14 @@ public class User {
 
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, Guild guild, Role role) {
         super();
         this.username = username;
         this.password = password;
+        this.guild = guild;
+        this.role = role;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -53,6 +61,22 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public Guild getGuild() {
+        return guild;
+    }
+
+    public void setGuild(Guild guild) {
+        this.guild = guild;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

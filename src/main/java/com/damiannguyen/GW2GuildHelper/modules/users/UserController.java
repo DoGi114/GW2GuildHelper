@@ -1,5 +1,10 @@
 package com.damiannguyen.GW2GuildHelper.modules.users;
 
+
+import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
+import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
+import com.damiannguyen.GW2GuildHelper.modules.role.Role;
+import com.damiannguyen.GW2GuildHelper.modules.role.RoleRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +20,11 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder encoder;
     @Autowired
-    UserRepository repository;
+    UserRepository userRepository;
+    @Autowired
+    GuildRepository guildRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     @GetMapping("/register")
     public String register(){
@@ -26,12 +35,22 @@ public class UserController {
     public String register(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
-            @RequestParam("password_confirm") String passwordConfirm
+            @RequestParam("password_confirm") String passwordConfirm,
+            @RequestParam("guild") String guildName
     ) {
 
         //TODO: Check passwords
-        LoggerFactory.getLogger(UserController.class).info(username);
-        repository.save(new User(username, encoder.encode(password)));
+        Guild guild = new Guild(guildName);
+        Role role;
+
+        if(guildRepository.findByName(guild.getName()) == null) {
+            guildRepository.save(guild);
+            role = new Role("ADMIN");
+        }else{
+            role = new Role("USER");
+        }
+        roleRepository.save(role);
+        userRepository.save(new User(username, encoder.encode(password), guild, role));
 
 
         return "redirect:/app/welcome";
