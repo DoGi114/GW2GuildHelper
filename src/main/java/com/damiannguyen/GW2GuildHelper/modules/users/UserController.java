@@ -40,14 +40,17 @@ public class UserController {
     ) {
 
         //TODO: Check passwords
-        Guild guild = new Guild(guildName);
+        Guild guild = guildRepository.findByName(guildName);
+        if(guild == null){
+            guild = new Guild(guildName);
+        }
         Role role;
 
         if(guildRepository.findByName(guild.getName()) == null) {
             guildRepository.save(guild);
-            role = new Role("ADMIN");
+            role = roleRepository.findByName("ADMIN");
         }else{
-            role = new Role("USER");
+            role = roleRepository.findByName("USER");
         }
         roleRepository.save(role);
         userRepository.save(new User(username, encoder.encode(password), guild, role));

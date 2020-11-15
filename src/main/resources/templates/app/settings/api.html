@@ -4,10 +4,14 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><head th:replace="/app/fragments/head::template">
 
 <body>
-<form method="POST" enctype="multipart/form-data" action="/settings">
+<div th:replace="app/fragments/menu::template"></div>
+<a href="/app/settings">General</a>
+<h2>API Settings</h2>
+<form method="POST" enctype="multipart/form-data" action="/app/settings/api">
     <p>Personal API:</p><input type="text" name="personal_api" th:value="${personal_api}">
     <p>Guild API:</p><input type="text" name="guild_api" th:value="${guild_api}">
     <input type="submit" value="Set">
+    <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
 </form>
 </body>
 </html>
