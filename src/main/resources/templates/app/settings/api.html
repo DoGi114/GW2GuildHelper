@@ -4,14 +4,21 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><head th:replace="/app/fragments/head::template">
 
 <body>
-<div th:replace="app/fragments/menu::template"></div>
-<!--<a href="/app/settings">General</a>-->
-<h2>API Settings</h2>
-<form method="POST" enctype="multipart/form-data" action="/app/settings/api">
-    <p>Personal API:</p><input type="text" name="personal_api" th:value="${personal_api}">
-    <p>Guild API:</p><input type="text" name="guild_api" th:value="${guild_api}">
-    <input type="submit" value="Set">
-    <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
-</form>
+    <div th:replace="app/fragments/menu::template"></div>
+    <h2>API Settings</h2>
+    <div class="row justify-content-center">
+        <form method="POST" enctype="multipart/form-data" action="/app/settings/api">
+            <div class="form-group row">
+                <label for="guild-leader-api">Guild leader API:</label>
+                <input id="guild-leader-api" type="text" class="form-control col-lg-6" name="personal_api" th:value="${personal_api}" placeholder="Guild leader API">
+            </div>
+            <div class="form-group row">
+                <label for="guild-id">Guild ID:</label>
+                <input type="text" id="guild-id" class="form-control col-xl-12" name="guild_api" th:value="${guild_api}" placeholder="Guild ID">
+            </div>
+            <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+            <button type="submit" class="btn btn-primary">Set!</button>
+        </form>
+    </div>
 </body>
 </html>

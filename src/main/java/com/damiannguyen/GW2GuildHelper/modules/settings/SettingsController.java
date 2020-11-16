@@ -1,5 +1,6 @@
 package com.damiannguyen.GW2GuildHelper.modules.settings;
 
+import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ public class SettingsController {
     private SettingsService settingsService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserHelper userHelper;
 
     @GetMapping("/app/settings")
     public String getSettings(Model model){
-        User user = getUser();
+        User user = userHelper.getUser();
 
         if(user != null){
             model.addAttribute("role", user.getRole().getName());
@@ -31,21 +34,9 @@ public class SettingsController {
         return "/app/settings/settings";
     }
 
-    private User getUser() {
-        String username;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal instanceof UserDetails){
-            username = ((UserDetails)principal).getUsername();
-        }else{
-            username = principal.toString();
-        }
-
-        return userRepository.findByUsername(username);
-    }
-
     @GetMapping("/app/settings/api")
     public String getApiSettings(Model model){
-        User user = getUser();
+        User user = userHelper.getUser();
 
         if(user != null){
             model.addAttribute("personal_api", settingsService.getLeaderApiKey(user.getGuild()));
@@ -61,7 +52,7 @@ public class SettingsController {
         RedirectAttributes attributes
     ){
 
-        User user = getUser();
+        User user = userHelper.getUser();
 
         if(user != null){
 
