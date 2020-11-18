@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><head th:replace="/app/fragments/head::template">
+
+<body>
+<script src="/js/tables.js"></script>
+<link type="text/css" href="/css/tables.css" rel="stylesheet">
+<div th:replace="app/fragments/menu::template"></div>
+<table id="datatable" class="table table-hover" width="100%">
+    <thead class="hover">
+    <tr>
+        <th onclick="sortTable(0)" class="th-sm">Action
+        </th>
+        <th onclick="sortTable(1)" class="th-sm">Time
+        </th>
+        <th onclick="sortTable(2)" class="th-sm">User
+        </th>
+        <th onclick="sortTable(3)" class="th-sm">Kicked By
+        </th>
+        <th onclick="sortTable(4)" class="th-sm">Invited By
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="logItem: ${log}">
+        <td th:text="${logItem.type}"></td>
+        <td th:text="${logItem.time}"></td>
+        <td th:text="${logItem.user}"></td>
+        <td th:text="${logItem.kickedBy}"></td>
+        <td th:text="${logItem.invitedBy}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -2,10 +2,12 @@ package com.damiannguyen.GW2GuildHelper.modules.users;
 
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.Role;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity(name = "users")
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

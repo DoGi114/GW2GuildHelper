@@ -15,4 +15,10 @@ public class RoasterController {
         model.addAttribute("roaster", roasterService.getRoaster());
         return "/app/roaster/basic";
     }
+
+    @GetMapping("app/roaster/log")
+    public String getRoasterLog(Model model){
+        model.addAttribute("log", roasterService.getRoasterLog());
+        return "/app/roaster/log";
+    }
 }

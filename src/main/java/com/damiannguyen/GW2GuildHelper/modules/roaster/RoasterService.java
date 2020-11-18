@@ -1,34 +1,53 @@
 package com.damiannguyen.GW2GuildHelper.modules.roaster;
 
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
-import com.damiannguyen.GW2GuildHelper.modules.guild.member.GuildMember;
+import com.damiannguyen.GW2GuildHelper.modules.guild.member.GuildMemberPojo;
+import com.damiannguyen.GW2GuildHelper.modules.log.Log;
+import com.damiannguyen.GW2GuildHelper.modules.log.LogPojo;
+import com.damiannguyen.GW2GuildHelper.modules.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class RoasterService {
     @Autowired
     UserHelper userHelper;
-    public List<GuildMember> getRoaster(){
+    @Autowired
+    LogRepository logRepository;
 
+    public List<GuildMemberPojo> getRoaster(){
         User user = userHelper.getUser();
         String api = "https://api.guildwars2.com/v2/guild/" + user.getGuild().getGuildId() + "/members?access_token=" + user.getGuild().getLeaderApiKey() ;
         RestTemplate restTemplate = new RestTemplate();
 
         //TODO:Invalid access token
 
-        ResponseEntity<GuildMember[]> response =
+        ResponseEntity<GuildMemberPojo[]> response =
                 restTemplate.getForEntity(
                         api,
-                        GuildMember[].class);
+                        GuildMemberPojo[].class);
 
-        return Arrays.asList(response.getBody());
+        return Arrays.asList(response.getBody()).stream()
+                .sorted((o1, o2) -> o2.getJoined().compareTo(o1.getJoined()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Log> getRoasterLog(){
+        List<Log> invited = logRepository.findAllByType("invited");
+        List<Log> joined = logRepository.findAllByType("joined");
+        List<Log> kicked = logRepository.findAllByType("kick");
+
+        return Stream.concat(Stream.concat(kicked.stream(), joined.stream()), invited.stream())
+                .sorted((o1, o2) -> o2.getTime().compareTo(o1.getTime()))
+                .collect(Collectors.toList());
     }
 }

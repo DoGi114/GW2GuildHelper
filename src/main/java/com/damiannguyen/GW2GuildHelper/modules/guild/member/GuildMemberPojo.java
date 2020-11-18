@@ -3,12 +3,12 @@ package com.damiannguyen.GW2GuildHelper.modules.guild.member;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
-public class GuildMember implements Serializable {
+public class GuildMemberPojo implements Serializable {
     private String name;
-    private LocalDate joined;
+    private LocalDateTime joined;
     private String rank;
 
     @Override
