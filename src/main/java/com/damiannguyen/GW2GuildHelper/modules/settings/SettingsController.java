@@ -2,10 +2,7 @@ package com.damiannguyen.GW2GuildHelper.modules.settings;
 
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
-import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +15,6 @@ public class SettingsController {
 
     @Autowired
     private SettingsService settingsService;
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private UserHelper userHelper;
 

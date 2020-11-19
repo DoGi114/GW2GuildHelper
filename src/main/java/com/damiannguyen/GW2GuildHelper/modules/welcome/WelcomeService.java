@@ -1,7 +1,6 @@
 package com.damiannguyen.GW2GuildHelper.modules.welcome;
 
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
-import com.damiannguyen.GW2GuildHelper.modules.guild.member.GuildMemberPojo;
 import com.damiannguyen.GW2GuildHelper.modules.log.Log;
 import com.damiannguyen.GW2GuildHelper.modules.log.LogPojo;
 import com.damiannguyen.GW2GuildHelper.modules.log.LogRepository;
@@ -36,7 +35,7 @@ public class WelcomeService {
 
         List<LogPojo> logPojos = Arrays.asList(response.getBody());
         for(LogPojo logPojo : logPojos){
-            Log log = LogMapper.map(logPojo);
+            Log log = LogMapper.map(logPojo, user.getGuild());
             logRepository.save(log);
         }
     }

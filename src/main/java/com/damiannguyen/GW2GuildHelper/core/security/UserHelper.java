@@ -2,6 +2,7 @@ package com.damiannguyen.GW2GuildHelper.core.security;
 
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,7 @@ public class UserHelper {
             username = principal.toString();
         }
 
+        LoggerFactory.getLogger(UserHelper.class).info("name: " + username);
         return userRepository.findByUsername(username);
     }
 }

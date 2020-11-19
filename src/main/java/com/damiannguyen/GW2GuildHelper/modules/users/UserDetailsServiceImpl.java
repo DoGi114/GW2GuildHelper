@@ -1,7 +1,5 @@
 package com.damiannguyen.GW2GuildHelper.modules.users;
 
-import org.apache.catalina.security.SecurityConfig;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

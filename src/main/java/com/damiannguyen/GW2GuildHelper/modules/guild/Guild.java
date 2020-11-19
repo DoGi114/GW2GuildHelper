@@ -60,4 +60,14 @@ public class Guild {
     public void setLeaderApiKey(String leaderApiKey) {
         this.leaderApiKey = leaderApiKey;
     }
+
+    @Override
+    public String toString() {
+        return "Guild{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", guildId='" + guildId + '\'' +
+                ", leaderApiKey='" + leaderApiKey + '\'' +
+                '}';
+    }
 }

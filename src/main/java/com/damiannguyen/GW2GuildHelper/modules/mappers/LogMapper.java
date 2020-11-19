@@ -1,14 +1,20 @@
 package com.damiannguyen.GW2GuildHelper.modules.mappers;
 
+import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
+import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.log.Log;
 import com.damiannguyen.GW2GuildHelper.modules.log.LogPojo;
-
-import java.time.LocalDate;
+import com.damiannguyen.GW2GuildHelper.modules.users.User;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 public class LogMapper {
-    public static Log map(LogPojo logPojo){
+
+    public static Log map(LogPojo logPojo, Guild guild){
         return new Log(
                 logPojo.getId(),
+                guild,
                 logPojo.getTime(),
                 logPojo.getUser(),
                 logPojo.getType(),
@@ -25,21 +31,5 @@ public class LogMapper {
                 logPojo.getAction(),
                 logPojo.getUpgradeId(),
                 logPojo.getRecipeId());
-//        private LocalDate time;
-//        private String user;
-//        private String type;
-//        private String invitedBy;
-//        private String kickedBy;
-//        private String changedBy;
-//        private String oldRank;
-//        private String newRank;
-//        private int itemId;
-//        private int count;
-//        private String operation;
-//        private int coins;
-//        private String motd;
-//        private String action;
-//        private int upgradeId;
-//        private int recipeId;
     }
 }
