@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserHelper {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public User getUser() {
         String username;

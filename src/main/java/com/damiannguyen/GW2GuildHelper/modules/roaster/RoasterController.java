@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RoasterController {
     @Autowired
-    RoasterService roasterService;
+    private RoasterService roasterService;
 
     @GetMapping("/app/roaster/basic")
     public String getRoaster(Model model){

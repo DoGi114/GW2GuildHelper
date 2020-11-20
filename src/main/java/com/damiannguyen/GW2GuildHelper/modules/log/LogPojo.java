@@ -27,7 +27,7 @@ public class LogPojo {
     private String newRank; // (string) - New rank name.
 //    treasury - A guild member has deposited an item into the guild's treasury. Additional fields include:
     @JsonProperty(value = "item_id")
-    private int itemId; // id of deposited item
+    private Long itemId; // id of deposited item
     private int count; // how many of item was deposited
 //    stash - - A guild member has deposited/withdrawn an item into the guild stash. Additional fields include:
     private String operation; // (string) - Possible values:

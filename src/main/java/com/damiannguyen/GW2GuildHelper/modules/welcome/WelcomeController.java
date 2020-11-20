@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WelcomeController {
     @Autowired
-    LogRepository logRepository;
-    @Autowired
-    WelcomeService welcomeService;
+    private WelcomeService welcomeService;
 
     @GetMapping({"/app/welcome", "/"})
     public String getWelcome(){

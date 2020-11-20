@@ -1,6 +1,7 @@
 package com.damiannguyen.GW2GuildHelper.modules.log;
 
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
+import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,8 @@ public class Log {
     private String changedBy;
     private String oldRank;
     private String newRank;
-    private int itemId;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Item item;
     private int count;
     private String operation;
     private int coins;

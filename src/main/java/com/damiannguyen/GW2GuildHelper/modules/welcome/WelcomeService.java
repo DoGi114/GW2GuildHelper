@@ -17,9 +17,11 @@ import java.util.List;
 @Service
 public class WelcomeService {
     @Autowired
-    UserHelper userHelper;
+    private UserHelper userHelper;
     @Autowired
-    LogRepository logRepository;
+    private LogRepository logRepository;
+    @Autowired
+    private LogMapper logMapper;
 
     public void loadLog(){
         User user = userHelper.getUser();
@@ -35,7 +37,7 @@ public class WelcomeService {
 
         List<LogPojo> logPojos = Arrays.asList(response.getBody());
         for(LogPojo logPojo : logPojos){
-            Log log = LogMapper.map(logPojo, user.getGuild());
+            Log log = logMapper.map(logPojo, user.getGuild());
             logRepository.save(log);
         }
     }

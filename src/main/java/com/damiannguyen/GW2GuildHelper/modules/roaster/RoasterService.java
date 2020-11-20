@@ -19,9 +19,9 @@ import java.util.stream.Stream;
 @Service
 public class RoasterService {
     @Autowired
-    UserHelper userHelper;
+    private UserHelper userHelper;
     @Autowired
-    LogRepository logRepository;
+    private LogRepository logRepository;
 
     public List<GuildMemberPojo> getRoaster(){
         User user = userHelper.getUser();
