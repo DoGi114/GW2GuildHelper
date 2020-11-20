@@ -6,6 +6,7 @@
 <script src="/js/tables.js"></script>
 <link type="text/css" href="/css/tables.css" rel="stylesheet">
 <div th:replace="app/fragments/menu::template"></div>
+<div th:replace="app/fragments/searchBar::template"></div>
 <table id="datatable" class="table table-hover" width="100%">
     <thead class="hover">
     <tr>
@@ -28,10 +29,14 @@
         <td th:text="${#temporals.format(logItem.time, 'dd-MM-yyyy HH:mm')}"></td>
         <td th:text="${logItem.user}"></td>
         <td th:text="${logItem.operation}"></td>
-        <td><img th:attr="src=${logItem.item.icon},title=${logItem.item.name},alt=${logItem.item.icon}" class="icon40" /></td>
+        <td>
+            <img th:if="${logItem.coins} == 0" th:attr="src=${logItem.item.icon},title=${logItem.item.name},alt=${logItem.item.icon}" class="icon40" />
+            <img th:if="${logItem.coins} > 0" th:attr="src='https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png',title=${logItem.item.name},alt=${logItem.item.icon}" class="icon40" />
+        </td>
         <td th:if="${logItem.coins == 0}" th:text="${logItem.item.name}"></td>
         <td th:if="${logItem.coins > 0}">Gold</td>
         <td th:if="${logItem.coins == 0}" th:text="${logItem.count}"></td>
+<!--        https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png-->
         <td th:if="${logItem.coins > 0}" th:text="${logItem.getCoinsConverted()}"></td>
 
     </tbody>
