@@ -22,7 +22,6 @@ public class UserHelper {
             username = principal.toString();
         }
 
-        LoggerFactory.getLogger(UserHelper.class).info("name: " + username);
         return userRepository.findByUsername(username);
     }
 }

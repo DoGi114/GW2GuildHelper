@@ -21,7 +21,8 @@
     <tr th:each="member: ${roaster}">
         <td th:text="${member.name}"></td>
         <td th:text="${member.rank}"></td>
-        <td th:text="${member.joined}"></td>
+        <td th:text="${#temporals.format(member.joined, 'dd-MM-yyyy HH:mm')}"></td>
+
     </tr>
     </tbody>
 </table>
