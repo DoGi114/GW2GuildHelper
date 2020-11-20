@@ -1,10 +1,11 @@
-package com.damiannguyen.GW2GuildHelper.modules.log;
+package com.damiannguyen.GW2GuildHelper.modules.guild.log;
 
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -38,4 +39,26 @@ public class Log {
     private String action;
     private int upgradeId;
     private int recipeId;
+
+    public String getCoinsConverted(){
+        //40000
+        StringBuilder stringBuilder = new StringBuilder();
+        int tempCoins = coins;
+
+        if(tempCoins / 10000 > 0){
+            stringBuilder.append(tempCoins/10000).append("g");
+            tempCoins = tempCoins % 10000;
+        }
+
+        if(tempCoins / 100 > 0){
+            stringBuilder.append(tempCoins/100).append("s");
+            tempCoins = tempCoins % 100;
+        }
+
+        if(tempCoins > 0) {
+            stringBuilder.append(tempCoins).append("c");
+        }
+
+        return stringBuilder.toString();
+    }
 }

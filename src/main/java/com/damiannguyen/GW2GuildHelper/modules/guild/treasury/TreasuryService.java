@@ -1,9 +1,9 @@
-package com.damiannguyen.GW2GuildHelper.modules.treasury;
+package com.damiannguyen.GW2GuildHelper.modules.guild.treasury;
 
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
-import com.damiannguyen.GW2GuildHelper.modules.log.Log;
-import com.damiannguyen.GW2GuildHelper.modules.log.LogRepository;
+import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
+import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

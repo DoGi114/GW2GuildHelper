@@ -1,4 +1,4 @@
-package com.damiannguyen.GW2GuildHelper.modules.log;
+package com.damiannguyen.GW2GuildHelper.modules.guild.log;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

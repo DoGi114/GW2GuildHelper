@@ -7,11 +7,17 @@
     user-select: none;
 }
 
+.icon40 {
+    width: 40px;
+    height: 40px;
+}
+
 @media (min-width: 768px) {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
 }
+
 
 /*intercept-url{*/
 /*    background-color: red;*/

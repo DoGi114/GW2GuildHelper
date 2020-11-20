@@ -1,4 +1,4 @@
-package com.damiannguyen.GW2GuildHelper.modules.roaster;
+package com.damiannguyen.GW2GuildHelper.modules.guild.roaster;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

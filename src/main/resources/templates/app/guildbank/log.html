@@ -13,11 +13,13 @@
         </th>
         <th onclick="sortTable(1)" class="th-sm">User
         </th>
+        <th onclick="sortTable(2)" class="th-sm">Action
+        </th>
         <th class="th-sm">Icon
         </th>
-        <th onclick="sortTable(2)" class="th-sm">Item
+        <th onclick="sortTable(3)" class="th-sm">Item
         </th>
-        <th onclick="sortTable(3)" class="th-sm">Count
+        <th onclick="sortTable(4)" class="th-sm">Count
         </th>
     </tr>
     </thead>
@@ -25,9 +27,12 @@
     <tr th:each="logItem: ${log}">
         <td th:text="${#temporals.format(logItem.time, 'dd-MM-yyyy HH:mm')}"></td>
         <td th:text="${logItem.user}"></td>
+        <td th:text="${logItem.operation}"></td>
         <td><img th:attr="src=${logItem.item.icon},title=${logItem.item.name},alt=${logItem.item.icon}" class="icon40" /></td>
-        <td th:text="${logItem.item.getName()}"></td>
-        <td th:text="${logItem.count}"></td>
+        <td th:if="${logItem.coins == 0}" th:text="${logItem.item.name}"></td>
+        <td th:if="${logItem.coins > 0}">Gold</td>
+        <td th:if="${logItem.coins == 0}" th:text="${logItem.count}"></td>
+        <td th:if="${logItem.coins > 0}" th:text="${logItem.getCoinsConverted()}"></td>
 
     </tbody>
 </table>

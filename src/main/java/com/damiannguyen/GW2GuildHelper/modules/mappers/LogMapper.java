@@ -3,9 +3,8 @@ package com.damiannguyen.GW2GuildHelper.modules.mappers;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import com.damiannguyen.GW2GuildHelper.modules.guild.items.ItemRepository;
-import com.damiannguyen.GW2GuildHelper.modules.log.Log;
-import com.damiannguyen.GW2GuildHelper.modules.log.LogPojo;
-import org.slf4j.LoggerFactory;
+import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
+import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

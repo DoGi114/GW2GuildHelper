@@ -1,4 +1,4 @@
-package com.damiannguyen.GW2GuildHelper.modules.treasury;
+package com.damiannguyen.GW2GuildHelper.modules.guild.treasury;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

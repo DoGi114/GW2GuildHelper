@@ -1,10 +1,10 @@
-package com.damiannguyen.GW2GuildHelper.modules.roaster;
+package com.damiannguyen.GW2GuildHelper.modules.guild.roaster;
 
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.member.GuildMemberPojo;
-import com.damiannguyen.GW2GuildHelper.modules.log.Log;
-import com.damiannguyen.GW2GuildHelper.modules.log.LogRepository;
+import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
+import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
