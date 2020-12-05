@@ -6,10 +6,17 @@
 <div th:replace="app/fragments/menu::template"></div>
 <!--<a th:if="${role}=='ADMIN'" href="/app/settings/api">API</a>-->
 <h2>Settings</h2>
-<!--<form method="POST" enctype="multipart/form-data" action="/settings">-->
-<!--    <p>Personal API:</p><input type="text" name="personal_api" th:value="${personal_api}">-->
-<!--    <p>Guild API:</p><input type="text" name="guild_api" th:value="${guild_api}">-->
-<!--    <input type="submit" value="Set">-->
-<!--</form>-->
+<div class="row justify-content-center">
+    <form method="POST" enctype="multipart/form-data" action="/app/settings">
+        <div sec:authorize="hasAuthority('ADMIN')" class="form-group row">
+            <label for="guild-admin">Select new admin</label>
+            <select name="guild_admin" id="guild-admin">
+                <option th:each="user : ${guild_users}" th:value="${user.username}" th:text="${user.username}"></option>
+            </select>
+        </div>
+        <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+        <button type="submit" class="btn btn-primary">Set!</button>
+    </form>
+</div>
 </body>
 </html>

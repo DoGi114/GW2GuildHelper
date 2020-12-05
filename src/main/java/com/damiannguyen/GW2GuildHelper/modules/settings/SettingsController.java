@@ -2,6 +2,7 @@ package com.damiannguyen.GW2GuildHelper.modules.settings;
 
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
+import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ public class SettingsController {
     private SettingsService settingsService;
     @Autowired
     private UserHelper userHelper;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/app/settings")
     public String getSettings(Model model){
@@ -26,7 +29,24 @@ public class SettingsController {
             model.addAttribute("role", user.getRole().getName());
         }
 
+        //TODO: Validation
+        assert user != null;
+        model.addAttribute("guild_users", settingsService.getUsersInGuild(user.getGuild()));
+        model.addAttribute("guild_admin", settingsService.getGuildAdmin(user.getGuild()));
+
         return "/app/settings/settings";
+    }
+
+    @PostMapping("/app/settings")
+    public String setSettings(
+            @RequestParam("guild_admin") String newGuildAdmin,
+            RedirectAttributes attributes
+    ){
+        User user = userHelper.getUser();
+
+        settingsService.setGuildAdmin(user.getGuild(), userRepository.findByUsername(newGuildAdmin));
+        //TODO: Some kind of reload of logedin user instead of relog
+        return "redirect:/logout";
     }
 
     @GetMapping("/app/settings/api")
@@ -41,7 +61,7 @@ public class SettingsController {
     }
 
     @PostMapping("/app/settings/api")
-    public String setSettings(
+    public String setApiSettings(
         @RequestParam("personal_api") String personalApi,
         @RequestParam("guild_api") String guildApi,
         RedirectAttributes attributes
