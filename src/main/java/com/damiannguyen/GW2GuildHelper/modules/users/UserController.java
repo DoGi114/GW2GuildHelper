@@ -6,7 +6,6 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.Role;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -2,9 +2,7 @@ package com.damiannguyen.GW2GuildHelper.modules.settings;
 
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
-import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +37,7 @@ public class SettingsController {
 
     @PostMapping("/app/settings")
     public String setSettings(
-            @RequestParam("admin_checkbox") List<String> adminUsers,
-            RedirectAttributes attributes
+            @RequestParam("admin_checkbox") List<String> adminUsers
     ){
         //TODO: Add possibility to have many admins
         User user = userHelper.getUser();

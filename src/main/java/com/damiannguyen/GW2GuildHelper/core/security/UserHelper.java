@@ -2,16 +2,15 @@ package com.damiannguyen.GW2GuildHelper.core.security;
 
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserHelper {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public User getUser() {
         String username;

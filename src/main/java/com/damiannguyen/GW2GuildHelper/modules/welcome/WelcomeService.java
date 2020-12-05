@@ -7,13 +7,9 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.mappers.LogMapper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +32,8 @@ public class WelcomeService {
                             api,
                             LogPojo[].class);
 
-            List<LogPojo> logPojos = Arrays.asList(response.getBody());
+            LogPojo[] logPojos = response.getBody();
+            //TODO: Catch NPE
             for (LogPojo logPojo : logPojos) {
                 Log log = logMapper.map(logPojo, user.getGuild());
                 logRepository.save(log);

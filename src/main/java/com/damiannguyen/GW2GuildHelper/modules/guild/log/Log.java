@@ -5,8 +5,6 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.slf4j.LoggerFactory;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;

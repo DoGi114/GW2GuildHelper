@@ -23,11 +23,6 @@ public class RoasterService {
     private final UserHelper userHelper;
     private final LogRepository logRepository;
 
-//    public RoasterService(UserHelper userHelper, LogRepository logRepository) {
-//        this.userHelper = userHelper;
-//        this.logRepository = logRepository;
-//    }
-
     public List<GuildMemberPojo> getRoaster(){
         User user = userHelper.getUser();
         String api = "https://api.guildwars2.com/v2/guild/" + user.getGuild().getGuildId() + "/members?access_token=" + user.getGuild().getLeaderApiKey() ;

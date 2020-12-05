@@ -6,12 +6,9 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogPojo;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.mappers.LogMapper;
-import com.damiannguyen.GW2GuildHelper.modules.users.User;
-import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -46,7 +43,8 @@ public class GuildLogTask {
                                 api,
                                 LogPojo[].class);
 
-                List<LogPojo> logPojos = Arrays.asList(response.getBody());
+                LogPojo[] logPojos = response.getBody();
+                //TODO: Assert not null
                 for (LogPojo logPojo : logPojos) {
                     Log log = logMapper.map(logPojo, guild);
                     logRepository.save(log);

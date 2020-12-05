@@ -6,8 +6,6 @@ import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,16 +45,5 @@ public class SettingsService {
 
     public List<User> getUsersInGuild(Guild guild){
         return userRepository.findAllByGuild(guild);
-    }
-
-    public User getGuildAdmin(Guild guild) {
-        List<User> userList = getUsersInGuild(guild);
-        for(User user : userList){
-            if(user.getRole().getName().equalsIgnoreCase("ADMIN")){
-                return user;
-            }
-        }
-        //TODO: Bad...
-        return null;
     }
 }
