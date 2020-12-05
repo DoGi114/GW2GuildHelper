@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class SettingsController {
 
@@ -32,21 +34,22 @@ public class SettingsController {
         //TODO: Validation
         assert user != null;
         model.addAttribute("guild_users", settingsService.getUsersInGuild(user.getGuild()));
-        model.addAttribute("guild_admin", settingsService.getGuildAdmin(user.getGuild()));
+//        model.addAttribute("guild_admin", settingsService.getGuildAdmin(user.getGuild()));
 
         return "/app/settings/settings";
     }
 
     @PostMapping("/app/settings")
     public String setSettings(
-            @RequestParam("guild_admin") String newGuildAdmin,
+            @RequestParam("admin_checkbox") List<String> adminUsers,
             RedirectAttributes attributes
     ){
+        //TODO: Add possibility to have many admins
         User user = userHelper.getUser();
 
-        settingsService.setGuildAdmin(user.getGuild(), userRepository.findByUsername(newGuildAdmin));
+        settingsService.setGuildAdmin(user.getGuild(), adminUsers);
         //TODO: Some kind of reload of logedin user instead of relog
-        return "redirect:/logout";
+        return "redirect:/app/settings/";
     }
 
     @GetMapping("/app/settings/api")

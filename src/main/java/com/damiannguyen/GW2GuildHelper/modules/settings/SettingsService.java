@@ -5,6 +5,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +34,10 @@ public class SettingsService {
         guildRepository.save(guild);
     }
 
-    public void setGuildAdmin(Guild guild, User newAdmin){
+    public void setGuildAdmin(Guild guild, List<String> adminList){
         List<User> userList = getUsersInGuild(guild);
         for(User user : userList){
-            if(newAdmin.equals(user)){
+            if(adminList.contains(user.getUsername())) {
                 user.setRole(roleRepository.getOne(1L));
             }else{
                 user.setRole(roleRepository.getOne(2L));
