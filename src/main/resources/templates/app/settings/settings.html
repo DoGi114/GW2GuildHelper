@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en"
-><head th:replace="/app/fragments/head::template">
-
-<body>
-<div th:replace="app/fragments/menu::template"></div>
-<!--<a th:if="${role}=='ADMIN'" href="/app/settings/api">API</a>-->
-<h2>Settings</h2>
-<div class="row justify-content-center">
-    <form method="POST" enctype="multipart/form-data" action="/app/settings">
-        <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
-            <label>Select admins</label>
-            <div th:each="user : ${guild_users}">
-                <input type="checkbox" th:checked="${user.role.name == 'ADMIN'}" id="admin_checkbox" name="admin_checkbox"
-                       th:value="${user.username}" checked>
-                <label th:for="${user.username}" th:text="${user.username}"></label>
-            </div>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+    <head th:replace="/app/fragments/head::template">
+    <body>
+        <div th:replace="app/fragments/menu::template"></div>
+        <h2>Settings</h2>
+        <div class="row justify-content-center">
+            <form method="POST" enctype="multipart/form-data" action="/app/settings">
+                <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
+                    <label>Select admins</label>
+                    <div th:each="user : ${guild_users}">
+                        <input type="checkbox" th:checked="${user.role.name == 'ADMIN'}" id="admin_checkbox" name="admin_checkbox"
+                               th:value="${user.username}" checked>
+                        <label th:for="${user.username}" th:text="${user.username}"></label>
+                    </div>
+                </div>
+                <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+                <button type="submit" class="btn btn-primary">Set!</button>
+            </form>
         </div>
-        <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
-        <button type="submit" class="btn btn-primary">Set!</button>
-    </form>
-</div>
-</body>
+    </body>
 </html>

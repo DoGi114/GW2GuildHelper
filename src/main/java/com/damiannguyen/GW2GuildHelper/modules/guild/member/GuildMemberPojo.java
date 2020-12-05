@@ -10,15 +10,4 @@ public class GuildMemberPojo implements Serializable {
     private String name;
     private LocalDateTime joined;
     private String rank;
-
-    @Override
-    public String toString() {
-        return "GuildMember{" +
-                "tag='" + name + '\'' +
-                ", joined=" + joined +
-                ", rank='" + rank + '\'' +
-                '}';
-    }
-
-
 }

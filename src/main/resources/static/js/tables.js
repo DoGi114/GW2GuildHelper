@@ -1,5 +1,5 @@
 function sortTable(n) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("datatable");
     switching = true;
     // Set the sorting direction to ascending:
@@ -60,13 +60,13 @@ $(document).ready(function() {
         });
 
         function searchByColumn(searchVal) {
-            var table = $('.table')
+            let table = $('.table')
             table.find('tr').each(function(index, row) {
-                var allDataPerRow = $(row).find('td');
+                let allDataPerRow = $(row).find('td');
                 if (allDataPerRow.length > 0) {
-                    var found = false;
+                    let found = false;
                     allDataPerRow.each(function(index, td) {
-                        var regExp = new RegExp(searchVal, "i");
+                        let regExp = new RegExp(searchVal, "i");
 
                         if (regExp.test($(td).text())) {
                             found = true
@@ -83,12 +83,3 @@ $(document).ready(function() {
         }
     }
 });
-
-// function search(){
-//     $("#searchbar").on("keyup", function() {
-//         var value = document.getElementById("searchbar").value.toLowerCase();
-//         $("#datatable tr").filter(function() {
-//             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-//         });
-//     });
-// };

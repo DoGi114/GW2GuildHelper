@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en"
->
-<head th:replace="/app/fragments/head::template">
-</head>
-<body>
-<!--<div th:replace="app/fragments/header::template"></div>-->
-<div th:replace="app/fragments/menu::template"></div>
-<p th:if="${code}=='error'">API error</p>
-<p th:if="${code}=='loaded'">Data refreshed!</p>
-</body>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+    <head th:replace="/app/fragments/head::template">
+    <body>
+        <!--<div th:replace="app/fragments/header::template"></div>-->
+        <div th:replace="app/fragments/menu::template"></div>
+        <p th:if="${code}=='error'">API error</p>
+        <p th:if="${code}=='loaded'">Data refreshed!</p>
+    </body>
 </html>

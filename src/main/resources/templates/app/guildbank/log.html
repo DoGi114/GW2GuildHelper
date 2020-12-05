@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en"
-><head th:replace="/app/fragments/head::template">
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+    <head th:replace="/app/fragments/head::template">
+    <body>
+        <script src="/js/tables.js"></script>
+        <link type="text/css" href="/css/tables.css" rel="stylesheet">
+        <div th:replace="app/fragments/menu::template"></div>
+        <div th:replace="app/fragments/searchBar::template"></div>
+        <table id="datatable" class="table table-hover" width="100%">
+            <thead class="hover">
+            <tr>
+                <th onclick="sortTable(0)" class="th-sm">Time
+                </th>
+                <th onclick="sortTable(1)" class="th-sm">User
+                </th>
+                <th onclick="sortTable(2)" class="th-sm">Action
+                </th>
+                <th class="th-sm">Icon
+                </th>
+                <th onclick="sortTable(3)" class="th-sm">Item
+                </th>
+                <th onclick="sortTable(4)" class="th-sm">Count
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="logItem: ${log}">
+                <td th:text="${#temporals.format(logItem.time, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${logItem.user}"></td>
+                <td th:text="${logItem.operation}"></td>
+                <td>
+                    <img th:if="${logItem.coins} == 0" th:attr="src=${logItem.item.icon},title=${logItem.item.name},alt=${logItem.item.icon}" class="icon32" />
+                    <img th:if="${logItem.coins} > 0" th:attr="src='https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png',title=${logItem.item.name},alt=${logItem.item.icon}" class="icon40" />
+                </td>
+                <td th:if="${logItem.coins == 0}" th:text="${logItem.item.name}"></td>
+                <td th:if="${logItem.coins > 0}">Gold</td>
+                <td th:if="${logItem.coins == 0}" th:text="${logItem.count}"></td>
+        <!--        https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png-->
+                <td th:if="${logItem.coins > 0}" th:text="${logItem.getCoinsConverted()}"></td>
 
-<body>
-<script src="/js/tables.js"></script>
-<link type="text/css" href="/css/tables.css" rel="stylesheet">
-<div th:replace="app/fragments/menu::template"></div>
-<div th:replace="app/fragments/searchBar::template"></div>
-<table id="datatable" class="table table-hover" width="100%">
-    <thead class="hover">
-    <tr>
-        <th onclick="sortTable(0)" class="th-sm">Time
-        </th>
-        <th onclick="sortTable(1)" class="th-sm">User
-        </th>
-        <th onclick="sortTable(2)" class="th-sm">Action
-        </th>
-        <th class="th-sm">Icon
-        </th>
-        <th onclick="sortTable(3)" class="th-sm">Item
-        </th>
-        <th onclick="sortTable(4)" class="th-sm">Count
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="logItem: ${log}">
-        <td th:text="${#temporals.format(logItem.time, 'dd-MM-yyyy HH:mm')}"></td>
-        <td th:text="${logItem.user}"></td>
-        <td th:text="${logItem.operation}"></td>
-        <td>
-            <img th:if="${logItem.coins} == 0" th:attr="src=${logItem.item.icon},title=${logItem.item.name},alt=${logItem.item.icon}" class="icon40" />
-            <img th:if="${logItem.coins} > 0" th:attr="src='https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png',title=${logItem.item.name},alt=${logItem.item.icon}" class="icon40" />
-        </td>
-        <td th:if="${logItem.coins == 0}" th:text="${logItem.item.name}"></td>
-        <td th:if="${logItem.coins > 0}">Gold</td>
-        <td th:if="${logItem.coins == 0}" th:text="${logItem.count}"></td>
-<!--        https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png-->
-        <td th:if="${logItem.coins > 0}" th:text="${logItem.getCoinsConverted()}"></td>
-
-    </tbody>
-</table>
-</body>
+            </tbody>
+        </table>
+    </body>
 </html>
