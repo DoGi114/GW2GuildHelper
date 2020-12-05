@@ -6,5 +6,7 @@
 <body>
 <!--<div th:replace="app/fragments/header::template"></div>-->
 <div th:replace="app/fragments/menu::template"></div>
+<p th:if="${code}=='error'">API error</p>
+<p th:if="${code}=='loaded'">Data refreshed!</p>
 </body>
 </html>

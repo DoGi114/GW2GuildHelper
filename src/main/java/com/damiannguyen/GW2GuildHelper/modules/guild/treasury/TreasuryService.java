@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TreasuryService {
@@ -18,6 +19,9 @@ public class TreasuryService {
 
     public List<Log> getTreasuryLog(){
         Guild guild = userHelper.getUser().getGuild();
-        return logRepository.findAllByTypeAndGuild("treasury", guild);
+        return logRepository.findAllByTypeAndGuild("treasury", guild)
+                .stream()
+                .sorted((o1, o2) -> o2.getTime().compareTo(o1.getTime()))
+                .collect(Collectors.toList());
     }
 }

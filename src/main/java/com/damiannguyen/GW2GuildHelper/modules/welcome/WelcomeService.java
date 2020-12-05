@@ -23,22 +23,28 @@ public class WelcomeService {
     @Autowired
     private LogMapper logMapper;
 
-    public void loadLog(){
+    public String loadLog(){
         User user = userHelper.getUser();
-        String api = "https://api.guildwars2.com/v2/guild/" + user.getGuild().getGuildId() + "/log?access_token=" + user.getGuild().getLeaderApiKey() ;
-        RestTemplate restTemplate = new RestTemplate();
+        if(( user.getGuild().getLeaderApiKey() != null && !user.getGuild().getLeaderApiKey().isEmpty() )
+                && ( user.getGuild().getGuildId() != null && !user.getGuild().getGuildId().isEmpty() )) {
+            String api = "https://api.guildwars2.com/v2/guild/" + user.getGuild().getGuildId() + "/log?access_token=" + user.getGuild().getLeaderApiKey();
+            RestTemplate restTemplate = new RestTemplate();
 
-        //TODO:Invalid access token
+            //TODO:Invalid access token
 
-        ResponseEntity<LogPojo[]> response =
-                restTemplate.getForEntity(
-                        api,
-                        LogPojo[].class);
+            ResponseEntity<LogPojo[]> response =
+                    restTemplate.getForEntity(
+                            api,
+                            LogPojo[].class);
 
-        List<LogPojo> logPojos = Arrays.asList(response.getBody());
-        for(LogPojo logPojo : logPojos){
-            Log log = logMapper.map(logPojo, user.getGuild());
-            logRepository.save(log);
+            List<LogPojo> logPojos = Arrays.asList(response.getBody());
+            for (LogPojo logPojo : logPojos) {
+                Log log = logMapper.map(logPojo, user.getGuild());
+                logRepository.save(log);
+            }
+            return "loaded";
+        }else{
+            return "error";
         }
     }
 }
