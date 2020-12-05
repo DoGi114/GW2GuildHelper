@@ -5,6 +5,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.Role;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,16 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private BCryptPasswordEncoder encoder;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private GuildRepository guildRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    private final BCryptPasswordEncoder encoder;
+    private final UserRepository userRepository;
+    private final GuildRepository guildRepository;
+    private final RoleRepository roleRepository;
 
     @GetMapping("/register")
     public String register(){

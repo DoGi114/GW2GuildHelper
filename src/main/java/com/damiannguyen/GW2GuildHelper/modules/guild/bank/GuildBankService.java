@@ -4,6 +4,7 @@ import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class GuildBankService {
-    @Autowired
-    private UserHelper userHelper;
-    @Autowired
-    private LogRepository logRepository;
+    private final UserHelper userHelper;
+    private final LogRepository logRepository;
 
     public List<Log> getGuildBankLog(){
         Guild guild = userHelper.getUser().getGuild();

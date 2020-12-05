@@ -4,6 +4,7 @@ import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +12,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TreasuryService {
-    @Autowired
-    private UserHelper userHelper;
-    @Autowired
-    private LogRepository logRepository;
+    private final UserHelper userHelper;
+    private final LogRepository logRepository;
+
+//    @Autowired
+//    public TreasuryService(UserHelper userHelper, LogRepository logRepository) {
+//        this.userHelper = userHelper;
+//        this.logRepository = logRepository;
+//    }
 
     public List<Log> getTreasuryLog(){
         Guild guild = userHelper.getUser().getGuild();

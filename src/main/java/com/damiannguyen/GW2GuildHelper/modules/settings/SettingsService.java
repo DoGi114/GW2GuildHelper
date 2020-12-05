@@ -5,6 +5,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SettingsService {
-    @Autowired
-    private GuildRepository guildRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    private final GuildRepository guildRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     public String getLeaderApiKey(Guild guild){
        return guild.getLeaderApiKey();

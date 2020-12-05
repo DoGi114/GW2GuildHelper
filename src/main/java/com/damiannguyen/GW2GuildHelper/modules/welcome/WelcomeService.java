@@ -6,6 +6,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogPojo;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.mappers.LogMapper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class WelcomeService {
-    @Autowired
-    private UserHelper userHelper;
-    @Autowired
-    private LogRepository logRepository;
-    @Autowired
-    private LogMapper logMapper;
+    private final UserHelper userHelper;
+    private final LogRepository logRepository;
+    private final LogMapper logMapper;
 
     public String loadLog(){
         User user = userHelper.getUser();

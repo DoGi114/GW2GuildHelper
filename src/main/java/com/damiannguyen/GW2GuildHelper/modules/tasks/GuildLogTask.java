@@ -8,6 +8,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.mappers.LogMapper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class GuildLogTask {
 
-    @Autowired
-    private GuildRepository guildRepository;
-    @Autowired
-    private LogRepository logRepository;
-    @Autowired
-    private LogMapper logMapper;
-
-    private Logger logger = LoggerFactory.getLogger(GuildLogTask.class);
+    private final GuildRepository guildRepository;
+    private final LogRepository logRepository;
+    private final LogMapper logMapper;
+    private final Logger logger = LoggerFactory.getLogger(GuildLogTask.class);
 
     @Scheduled(fixedRate = 3600000)
     public void getGuildLog(){

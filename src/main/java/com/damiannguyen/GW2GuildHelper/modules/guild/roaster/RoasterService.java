@@ -6,6 +6,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.member.GuildMemberPojo;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class RoasterService {
-    @Autowired
-    private UserHelper userHelper;
-    @Autowired
-    private LogRepository logRepository;
+    private final UserHelper userHelper;
+    private final LogRepository logRepository;
+
+//    public RoasterService(UserHelper userHelper, LogRepository logRepository) {
+//        this.userHelper = userHelper;
+//        this.logRepository = logRepository;
+//    }
 
     public List<GuildMemberPojo> getRoaster(){
         User user = userHelper.getUser();

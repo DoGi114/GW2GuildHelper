@@ -5,15 +5,14 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import com.damiannguyen.GW2GuildHelper.modules.guild.items.ItemRepository;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.Log;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogPojo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class LogMapper {
-    @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private ItemMapper itemMapper;
+    private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
 
     public Log map(LogPojo logPojo, Guild guild){
         Item item;
