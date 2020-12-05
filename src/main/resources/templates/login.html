@@ -19,6 +19,7 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
+        <p th:if="${loginError}" class="error">Wrong user or password</p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <a href="/register">Don't have account? Register now!</a>
         <p class="mt-5 mb-3 text-muted">© 2020-2021</p>

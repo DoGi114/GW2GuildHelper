@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -37,23 +38,25 @@ public class UserController {
             @RequestParam("password_confirm") String passwordConfirm,
             @RequestParam("guild") String guildName
     ) {
+        if(password.equals(passwordConfirm)) {
+            //TODO: Check passwords
+            Guild guild = guildRepository.findByName(guildName);
+            if (guild == null) {
+                guild = new Guild(guildName);
+            }
+            Role role;
 
-        //TODO: Check passwords
-        Guild guild = guildRepository.findByName(guildName);
-        if(guild == null){
-            guild = new Guild(guildName);
-        }
-        Role role;
-
-        if(guildRepository.findByName(guild.getName()) == null) {
-            guildRepository.save(guild);
-            role = roleRepository.findByName("ADMIN");
+            if (guildRepository.findByName(guild.getName()) == null) {
+                guildRepository.save(guild);
+                role = roleRepository.findByName("ADMIN");
+            } else {
+                role = roleRepository.findByName("USER");
+            }
+            roleRepository.save(role);
+            userRepository.save(new User(username, encoder.encode(password), guild, role));
         }else{
-            role = roleRepository.findByName("USER");
+            //TODO: Catch bad password
         }
-        roleRepository.save(role);
-        userRepository.save(new User(username, encoder.encode(password), guild, role));
-
 
         return "redirect:/app/welcome";
     }
@@ -66,6 +69,12 @@ public class UserController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
 
+        return "login";
+    }
+
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
         return "login";
     }
 
