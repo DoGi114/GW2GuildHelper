@@ -7,8 +7,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogPojo;
 import com.damiannguyen.GW2GuildHelper.modules.guild.log.LogRepository;
 import com.damiannguyen.GW2GuildHelper.modules.mappers.LogMapper;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,17 +16,16 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Log4j2
 public class GuildLogTask {
 
     private final GuildRepository guildRepository;
     private final LogRepository logRepository;
     private final LogMapper logMapper;
-    private final Logger logger = LoggerFactory.getLogger(GuildLogTask.class);
 
     @Scheduled(fixedRate = 3600000)
     public void getGuildLog(){
@@ -49,14 +47,14 @@ public class GuildLogTask {
                     Log log = logMapper.map(logPojo, guild);
                     logRepository.save(log);
                 }
-                logger.info("Guild " + guild.getName() + " updated!");
+                log.info("Guild " + guild.getName() + " updated!");
             }catch (HttpClientErrorException exception){
                 if(exception.getStatusCode() == HttpStatus.UNAUTHORIZED){
-                    logger.error("Failed to log in guild " + guild.getName() + " due to bad access_token");
+                    log.error("Failed to log in guild " + guild.getName() + " due to bad access_token");
                 }
             }catch (HttpServerErrorException exception){
                 if(exception.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
-                    logger.error("API is not responding@");
+                    log.error("API is not responding@");
                 }
             }
         }

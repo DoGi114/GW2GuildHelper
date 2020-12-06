@@ -2,8 +2,8 @@
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
     <head th:replace="/app/fragments/head::template">
     <body>
-        <!--<div th:replace="app/fragments/header::template"></div>-->
         <div th:replace="app/fragments/menu::template"></div>
+        <!--/*@thymesVar id="code" type="java.lang.String"*/-->
         <p th:if="${code}=='error'">API error</p>
         <p th:if="${code}=='loaded'">Data refreshed!</p>
     </body>

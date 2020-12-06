@@ -1,12 +1,6 @@
 package com.damiannguyen.GW2GuildHelper.modules.users;
 
-
-import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
-import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
-import com.damiannguyen.GW2GuildHelper.modules.users.role.Role;
-import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final BCryptPasswordEncoder encoder;
-    private final UserRepository userRepository;
-    private final GuildRepository guildRepository;
-    private final RoleRepository roleRepository;
+    private final UserService userService;
 
     @GetMapping("/register")
     public String register(){
@@ -35,22 +26,9 @@ public class UserController {
             @RequestParam("password_confirm") String passwordConfirm,
             @RequestParam("guild") String guildName
     ) {
-        if(password.equals(passwordConfirm)) {
+        if(userService.isPasswordSame(password, passwordConfirm)) {
             //TODO: Check passwords
-            Guild guild = guildRepository.findByName(guildName);
-            if (guild == null) {
-                guild = new Guild(guildName);
-            }
-            Role role;
-
-            if (guildRepository.findByName(guild.getName()) == null) {
-                guildRepository.save(guild);
-                role = roleRepository.findByName("ADMIN");
-            } else {
-                role = roleRepository.findByName("USER");
-            }
-            roleRepository.save(role);
-            userRepository.save(new User(username, encoder.encode(password), guild, role));
+            userService.createUser(username, guildName, password);
         }else{
             //TODO: Catch bad password
         }

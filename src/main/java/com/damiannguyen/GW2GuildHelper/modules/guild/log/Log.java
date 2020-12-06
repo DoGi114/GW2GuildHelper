@@ -39,7 +39,6 @@ public class Log {
     private int recipeId;
 
     public String getCoinsConverted(){
-        //40000
         StringBuilder stringBuilder = new StringBuilder();
         int tempCoins = coins;
 

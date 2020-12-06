@@ -2,16 +2,15 @@ package com.damiannguyen.GW2GuildHelper.modules.mappers;
 
 import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import com.damiannguyen.GW2GuildHelper.modules.guild.items.ItemPojo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Component
+@Log4j2
 public class ItemMapper {
-    private final Logger logger = LoggerFactory.getLogger(ItemMapper.class);
 
     public Item map(ItemPojo itemPojo){
         return new Item(itemPojo.getId(), itemPojo.getName(), itemPojo.getIcon());
@@ -34,7 +33,7 @@ public class ItemMapper {
             }
             return new Item(itemPojo.getId(), itemPojo.getName(), itemPojo.getIcon());
         }catch (HttpClientErrorException | NullPointerException e){
-            logger.error(e.getLocalizedMessage());
+            log.error(e.getLocalizedMessage());
             return new Item(id, "", "");
         }
     }

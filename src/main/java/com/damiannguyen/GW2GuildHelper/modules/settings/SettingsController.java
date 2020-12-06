@@ -30,7 +30,6 @@ public class SettingsController {
         //TODO: Validation
         assert user != null;
         model.addAttribute("guild_users", settingsService.getUsersInGuild(user.getGuild()));
-//        model.addAttribute("guild_admin", settingsService.getGuildAdmin(user.getGuild()));
 
         return "/app/settings/settings";
     }
