@@ -1,5 +1,6 @@
 package com.damiannguyen.GW2GuildHelper.modules.users;
 
+import com.damiannguyen.GW2GuildHelper.core.mailing.MailService;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.GuildRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.Role;
@@ -16,12 +17,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final GuildRepository guildRepository;
     private final RoleRepository roleRepository;
+    private final MailService mailService;
 
     public boolean isPasswordSame(String password1, String password2){
         return password1.equals(password2);
     }
 
-    public void createUser(String username, String guildName, String password) {
+    public void createUser(String username, String email, String guildName, String password) {
         Guild guild = guildRepository.findByName(guildName);
         if (guild == null) {
             guild = new Guild(guildName);
@@ -35,6 +37,16 @@ public class UserService {
             role = roleRepository.findByName("USER");
         }
         roleRepository.save(role);
-        userRepository.save(new User(username, encoder.encode(password), guild, role));
+        User user = new User(username, email, encoder.encode(password), guild, role);
+        userRepository.save(user);
+        mailService.sendGreetings(user);
+    }
+
+    public boolean isUserNotRegistered(String username) {
+        return !userRepository.existsByUsername(username);
+    }
+
+    public void remindPassword(String username) {
+        mailService.sendPassword(userRepository.findByUsername(username));
     }
 }

@@ -15,6 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
+    private String email;
     private String password;
     @OneToOne(cascade = CascadeType.ALL)
     private Guild guild;
@@ -23,9 +24,10 @@ public class User {
     @Transient
     private String passwordConfirm;
 
-    public User(String username, String password, Guild guild, Role role) {
+    public User(String username, String email, String password, Guild guild, Role role) {
         super();
         this.username = username;
+        this.email = email;
         this.password = password;
         this.guild = guild;
         this.role = role;
