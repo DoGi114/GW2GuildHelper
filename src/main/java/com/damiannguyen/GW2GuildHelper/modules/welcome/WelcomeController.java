@@ -12,9 +12,6 @@ public class WelcomeController {
 
     @GetMapping({"/app/welcome", "/"})
     public String getWelcome(Model model){
-        //TODO: Move to another module
-//        String code = welcomeService.loadLog();
-//        model.addAttribute("code", code);
         return "app/welcome";
     }
 

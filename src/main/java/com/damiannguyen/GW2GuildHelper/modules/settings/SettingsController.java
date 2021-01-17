@@ -31,7 +31,7 @@ public class SettingsController {
         assert user != null;
         model.addAttribute("guild_users", settingsService.getUsersInGuild(user.getGuild()));
 
-        return "/app/settings/settings";
+        return "app/settings/settings";
     }
 
     @PostMapping("/app/settings")
@@ -54,7 +54,7 @@ public class SettingsController {
             model.addAttribute("personal_api", settingsService.getLeaderApiKey(user.getGuild()));
             model.addAttribute("guild_api", settingsService.getGuildId(user.getGuild()));
         }
-        return "/app/settings/api";
+        return "app/settings/api";
     }
 
     @PostMapping("/app/settings/api")

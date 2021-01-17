@@ -28,7 +28,6 @@ public class UserController {
     ) {
         if(userService.isUserNotRegistered(username)) {
             if (userService.isPasswordSame(password, passwordConfirm)) {
-                //TODO: Check passwords
                 userService.createUser(username, email, guildName, password);
                 return "redirect:/app/welcome";
             } else {
@@ -51,18 +50,13 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
-//        if (error != null)
-//            model.addAttribute("error", "Your username and password is invalid.");
-//
-//        if (logout != null)
-//            model.addAttribute("message", "You have been logged out successfully.");
-
         return "login";
     }
 
     @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
+//        model.addAttribute("user", );
         return "login";
     }
 

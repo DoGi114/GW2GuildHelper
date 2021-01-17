@@ -5,19 +5,22 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity(name = "guild_log")
+@Table(indexes = {
+        @Index(columnList = "guild_id"),
+        @Index(columnList = "operation")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Log {
     @Id
     private Long id;
+    @JoinColumn(name = "guild_id")
     @OneToOne(cascade = CascadeType.ALL)
     private Guild guild;
     private LocalDateTime time;
@@ -39,6 +42,11 @@ public class Log {
     private int recipeId;
 
     public String getCoinsConverted(){
+        return convertGold(getCoins());
+    }
+
+    private String convertGold(int gold){
+
         StringBuilder stringBuilder = new StringBuilder();
         int tempCoins = coins;
 

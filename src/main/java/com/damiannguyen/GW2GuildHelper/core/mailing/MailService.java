@@ -10,6 +10,7 @@ import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,19 @@ import java.io.IOException;
 
 @Service
 @Log4j2
-@RequiredArgsConstructor
 public class MailService {
-    private final BCryptPasswordEncoder encoder;
-    //TODO: Handle better
-    private final String API = "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";
+    private final String emailFrom;
+    private final SendGrid sendGridApi;
+
+    public MailService(
+            @Value("${GW2GuildHelperApp.sendgrid.apikey}") String sendgridApiKey,
+            @Value("${GW2GuildHelperApp.sendgrid.emailFrom}") String emailFrom) {
+        this.emailFrom = emailFrom;
+        this.sendGridApi = new SendGrid(sendgridApiKey);
+    }
 
     public void sendGreetings(User user){
-        Email from = new Email("GW2GuildHelper@gmail.com");
+        Email from = new Email(emailFrom);
         String subject = "Welcome to GW2GuildHelper!";
         Email to = new Email(user.getEmail());
         //TODO: better content!
@@ -33,24 +39,27 @@ public class MailService {
     }
 
     public void sendPassword(User user){
-        Email from = new Email("GW2GuildHelper@gmail.com");
+        Email from = new Email(emailFrom);
         String subject = "Welcome to GW2GuildHelper!";
         Email to = new Email(user.getEmail());
         //TODO: better content! + Decrypt password?
-        Content content = new Content("text/plain", "Welcome " + user.getUsername() + "!\n" + "Your password is: " + user.getPassword());
+        Content content = new Content("text/plain", "Welcome " + user.getUsername() + "!\n" + "Click this link to reset the password: <a href=\"http://www.sendgrid.com\">Click!</a>");
         sendEmail(from, subject, to, content);
     }
 
     private void sendEmail(Email from, String subject, Email to, Content content){
         Mail mail = new Mail(from, subject, to, content);
 
-        SendGrid sendGrid = new SendGrid(API);
         Request request = new Request();
         try{
             request.setMethod(Method.POST);
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
-            Response response = sendGrid.api(request);
+            Response response = sendGridApi.api(request);
+
+            System.out.println(response.getStatusCode());
+            System.out.println(response.getBody());
+            System.out.println(response.getHeaders());
         }catch (IOException e){
             log.error("Error while sending mail to " + to.getEmail());
         }

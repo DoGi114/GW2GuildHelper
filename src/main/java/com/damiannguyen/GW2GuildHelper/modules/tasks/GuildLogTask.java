@@ -27,6 +27,7 @@ public class GuildLogTask {
     private final LogRepository logRepository;
     private final LogMapper logMapper;
 
+    //todo:crona?
     @Scheduled(fixedRate = 3600000)
     public void getGuildLog(){
 
@@ -54,7 +55,7 @@ public class GuildLogTask {
                 }
             }catch (HttpServerErrorException exception){
                 if(exception.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
-                    log.error("API is not responding@");
+                    log.error("API is not responding!");
                 }
             }
         }

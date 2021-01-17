@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head th:replace="app/fragments/head::template"/>
+<body>
+<script src="/js/tables.js"></script>
+<link type="text/css" href="/css/tables.css" rel="stylesheet">
+<div th:replace="app/fragments/menu::template"></div>
+<h3 th:text="${user}"></h3>
+<h2>Donations:</h2>
+
+<!--<td th:if="${logItem.coins == 0}" th:text="${logItem.item.name}"></td>-->
+<!--<td th:if="${logItem.coins > 0}">Gold</td>-->
+<!--<td th:if="${logItem.coins == 0}" th:text="${logItem.count}"></td>-->
+<!--<td th:if="${logItem.coins > 0}" th:text="${logItem.getCoinsConverted()}"></td>-->
+
+<div th:each="donation : ${donationList}">
+    <span th:if="${donation.coins == 0}" th:text="${donation.count}"></span>
+    <span th:if="${donation.coins > 0}" th:text="${donation.getCoinsConverted()}"></span>
+    <img th:if="${donation.coins == 0}" th:attr="src=${donation.item.icon},title=${donation.item.name},alt=${donation.item.icon}" class="icon32" />
+    <img th:if="${donation.coins > 0}" th:attr="src='https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png',title=${donation.item.name},alt=${donation.item.icon}" class="icon32" />
+    <span th:if="${donation.coins == 0}" th:text="${donation.item.name}"></span>
+    <span th:if="${donation.coins > 0}" th:text="Gold"></span>
+</div>
+<h2>Withdraw:</h2>
+<div th:each="withdraw : ${withdrawList}">
+    <span th:if="${withdraw.coins == 0}" th:text="${withdraw.count}"></span>
+    <span th:if="${withdraw.coins > 0}" th:text="${withdraw.getCoinsConverted()}"></span>
+    <img th:if="${withdraw.coins == 0}" th:attr="src=${withdraw.item.icon},title=${withdraw.item.name},alt=${withdraw.item.icon}" class="icon32" />
+    <img th:if="${withdraw.coins > 0}" th:attr="src='https://wiki.guildwars2.com/images/d/d7/Gold_coin_%28highres%29.png',title=${withdraw.item.name},alt=${withdraw.item.icon}" class="icon32" />
+    <span th:if="${withdraw.coins == 0}" th:text="${withdraw.item.name}"></span>
+    <span th:if="${withdraw.coins > 0}" th:text="Gold"></span>
+</div>
+
+</body>
+</html>
