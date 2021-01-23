@@ -20,7 +20,8 @@ public class UserService {
     private final MailService mailService;
 
     public boolean isPasswordSame(String password1, String password2){
-        return password1.equals(password2);
+//        return password1.equals(password2);
+        return encoder.matches(password2, password1);
     }
 
     public void createUser(String username, String email, String guildName, String password) {

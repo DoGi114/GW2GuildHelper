@@ -4,11 +4,14 @@ import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.users.User;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserRepository;
 import com.damiannguyen.GW2GuildHelper.modules.users.UserService;
+import com.damiannguyen.GW2GuildHelper.modules.users.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +27,7 @@ public class SettingsController {
     private final UserHelper userHelper;
     private final UserService userService;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @GetMapping("/app/settings")
     public String getSettings(Model model){
@@ -92,18 +96,29 @@ public class SettingsController {
         @RequestParam("confirm-new-password") String confirmNewPassword,
         RedirectAttributes redirectAttributes
     ){
-        if(userService.isPasswordSame(userHelper.getUser().getPassword(), encoder.encode(currentPassword))){
-            User user = userHelper.getUser();
+        User user = userHelper.getUser();
+        if(userService.isPasswordSame(user.getPassword(), currentPassword)){
             if(newPassword.equals(confirmNewPassword)) {
                 user.setPassword(newPassword);
                 user.setPasswordConfirm(confirmNewPassword);
                 userRepository.save(user);
+                redirectAttributes.addFlashAttribute("confirmation", "Password has been changed!");
             }else{
                 redirectAttributes.addFlashAttribute("error", "New password doesnt match confirm password");
             }
         }else{
             redirectAttributes.addFlashAttribute("error", "Current password is incorrect");
         }
+        return "redirect:/app/settings";
+    }
+
+    @GetMapping("/app/settings/confirm-user/{name}")
+    public String confirmUser(
+            @PathVariable String name
+    ){
+        User user = userRepository.findByUsername(name);
+        user.setRole(roleRepository.findByName("CONFIRMED"));
+        userRepository.save(user);
         return "redirect:/app/settings";
     }
 }

@@ -4,6 +4,7 @@ import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.users.role.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.id.UUIDGenerator;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 public class User {
+    //TODO: Add confirming user by admin!
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,6 +25,7 @@ public class User {
     private Role role;
     @Transient
     private String passwordConfirm;
+    private String uuid;
 
     public User(String username, String email, String password, Guild guild, Role role) {
         super();

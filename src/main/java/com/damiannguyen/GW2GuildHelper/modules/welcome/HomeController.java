@@ -16,10 +16,10 @@ public class HomeController {
     }
 
     @GetMapping({"/app/refresh"})
-    public String getRefresh(Model model){
+    public void getRefresh(Model model){
         homeService.loadLog();
         //TODO: Dont redirect!!!
-        return "";
+//        return "";
     }
 
 }

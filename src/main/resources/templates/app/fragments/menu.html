@@ -8,26 +8,26 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav mr-auto">
 <!--                    Refreshing data?-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="/app/refresh">Refresh data!</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="/app/refresh">Refresh data!</a>-->
+<!--                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link" href="/app/home">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li sec:authorize="hasAnyAuthority('CONFIRMED', 'ADMIN')" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roaster</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown02">
                             <a class="dropdown-item" href="/app/roaster/basic">Basic</a>
                             <a class="dropdown-item" href="/app/roaster/log">Log</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li sec:authorize="hasAnyAuthority('CONFIRMED', 'ADMIN')" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Treasury</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown03">
                             <a class="dropdown-item" href="/app/treasury/log">Log</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li sec:authorize="hasAnyAuthority('CONFIRMED', 'ADMIN')" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bank</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="/app/guildbank/log">Log</a>

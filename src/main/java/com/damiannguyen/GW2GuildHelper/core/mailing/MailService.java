@@ -43,7 +43,7 @@ public class MailService {
         String subject = "Welcome to GW2GuildHelper!";
         Email to = new Email(user.getEmail());
         //TODO: better content!
-        Content content = new Content("text/plain", "Welcome " + user.getUsername() + "!\n" + "password has been reseted!");
+        Content content = new Content("text/plain", "Welcome " + user.getUsername() + "!\n" + "reset password with this link: <a href='www.gw2guildhelper.app/reset-password/" + user.getUuid() + "'>click!</a>");
         sendEmail(from, subject, to, content);
     }
 

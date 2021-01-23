@@ -12,15 +12,14 @@
             <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" name="remember-me"> Remember me
                 </label>
             </div>
             <div th:if="${loginError}" class="error">
                 <p>Wrong user or password.</p>
                 <p>Dont remember it? Click here: </p>
-                <a  th:href="@{/reset-password}">Reset password!</a>
+                <a  th:href="@{/reset-request}">Reset password!</a>
             </div>
-            <a th:if="${reminded}">Check your email!</a>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <a href="/register">Don't have account? Register now!</a>
             <p class="mt-5 mb-3 text-muted">© 2020-2021</p>

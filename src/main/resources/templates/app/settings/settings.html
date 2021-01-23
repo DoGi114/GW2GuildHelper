@@ -20,18 +20,20 @@
                         <input id="confirm-new-password" type="password" class="form-control col-xl-12" name="confirm-new-password" placeholder="Confirm new password">
                     </div>
                     <p class="row error" th:if="${error}" th:text="${error}"></p>
+                    <p class="row error" th:if="${confirmation}" th:text="${confirmation}"></p>
                     <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
                     <button type="submit" class="row btn btn-primary">Set!</button>
                 </form>
             </div>
-            <div class="row">
+            <div sec:authorize="hasAuthority('ADMIN')" class="row">
                 <form method="POST" enctype="multipart/form-data" action="/app/settings">
-                    <div sec:authorize="hasAuthority('ADMIN')" class="form-group col">
+                    <div class="form-group col">
                         <h5>Select admins</h5>
                         <div th:each="user : ${guild_users}">
                             <input type="checkbox" th:checked="${user.role.name == 'ADMIN'}" id="admin_checkbox" name="admin_checkbox"
                                    th:value="${user.username}" checked>
                             <label th:for="${user.username}" th:text="${user.username}"></label>
+                            <a th:if="${!( user.role.name == 'ADMIN' || user.role.name == 'CONFIRMED' )}" th:href="@{settings/confirm-user/{name}(name=${user.username})}">Confirm user</a>
                         </div>
                     </div>
                     <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>

@@ -37,9 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/resources/**", "/register", "/register-error", "/reset-password").permitAll()
-                    .antMatchers("/security/api").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                    .antMatchers("/resources/**", "/register", "/register-error", "/reset-password", "/reset-request", "/reset-password/**", "/reset-password").permitAll()
+                    .antMatchers("/app/settings/api").hasAuthority("ADMIN")
+                    .antMatchers("/app/home").authenticated()
+                    .anyRequest().hasAnyAuthority("CONFIRMED", "ADMIN")
                     .and()
                 .formLogin()
                     .loginPage("/login")
@@ -47,8 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureUrl("/login-error")
                     .permitAll()
                 .and()
-                    .rememberMe() //TODO: Not working?
+                    .rememberMe()
                     .key("uniqueAndSecret")
+                    .tokenValiditySeconds(86400)
                 .and()
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //TODO: Not recommended
