@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head th:replace="app/fragments/head::template">
+<body>
+<div th:replace="app/fragments/menu::template"></div>
+<div class="container">
+    <h2>Hi, <span sec:authentication="name"></span></h2>
+    <p>This website was created due to Guild Wars 2 API limitation to not holding every action in it. As for this app it holds
+    every API entry since creation of the guild in it. It refreshed guild every 10 minutes or on clicking "Refresh data" button so you can
+    have all the API entries. You can also easily iterate and search through items, logs, donations and roaster. </p>
+
+    <p>Admin profile is the one who creates the guild 1st. You can also define other admins in Settings section.
+    Application requires guild leader API key and Guild ID.
+    If you dont know your guild ID refer to : <a href="https://wiki.guildwars2.com/wiki/API:2/guild/search">wiki</a></p>
+</div>
+</body>
+</html>

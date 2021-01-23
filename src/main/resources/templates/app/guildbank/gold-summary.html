@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+    <head th:replace="app/fragments/head::template"/>
+    <body>
+        <script src="/js/tables.js"></script>
+        <link type="text/css" href="/css/tables.css" rel="stylesheet">
+        <div th:replace="app/fragments/menu::template"></div>
+        <div th:replace="app/fragments/searchBar::template"></div>
+        <table id="datatable" class="table table-hover" width="100%">
+            <thead class="hover">
+            <tr>
+                <th onclick="sortTable(0)" class="th-sm">User
+                </th>
+                <th onclick="sortTable(1)" class="th-sm">Gold deposited
+                </th>
+                <th class="th-sm">
+
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="logItem: ${summary}">
+                <td th:text="${logItem.user}"></td>
+                <td th:alt="${logItem.coins}" th:text="${logItem.getCoinsConverted()}"></td>
+                <td>
+                    <a th:href="@{gold-summary/{name}(name=${logItem.user})}">Details</a>
+                </td>
+            </tbody>
+        </table>
+    </body>
+</html>

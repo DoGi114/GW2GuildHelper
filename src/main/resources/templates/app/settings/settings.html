@@ -3,20 +3,41 @@
     <head th:replace="app/fragments/head::template"/>
     <body>
         <div th:replace="app/fragments/menu::template"></div>
-        <h2>Settings</h2>
-        <div class="row justify-content-center">
-            <form method="POST" enctype="multipart/form-data" action="/app/settings">
-                <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
-                    <label>Select admins</label>
-                    <div th:each="user : ${guild_users}">
-                        <input type="checkbox" th:checked="${user.role.name == 'ADMIN'}" id="admin_checkbox" name="admin_checkbox"
-                               th:value="${user.username}" checked>
-                        <label th:for="${user.username}" th:text="${user.username}"></label>
+        <div class="container">
+            <div class="row">
+                <form method="POST" enctype="multipart/form-data" action="/app/settings/change-password">
+                    <h5 class="row">Change password</h5>
+                    <div class="form-group row">
+                        <label for="current-password">Your current password:</label>
+                        <input id="current-password" type="password" class="form-control col-xl-12" name="current-password" placeholder="Current password">
                     </div>
-                </div>
-                <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
-                <button type="submit" class="btn btn-primary">Set!</button>
-            </form>
+                    <div class="form-group row">
+                        <label for="new-password">New password:</label>
+                        <input id="new-password" type="password" class="form-control col-xl-12" name="new-password" placeholder="New password">
+                    </div>
+                    <div class="form-group row">
+                        <label for="confirm-new-password">New password:</label>
+                        <input id="confirm-new-password" type="password" class="form-control col-xl-12" name="confirm-new-password" placeholder="Confirm new password">
+                    </div>
+                    <p class="row error" th:if="${error}" th:text="${error}"></p>
+                    <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+                    <button type="submit" class="row btn btn-primary">Set!</button>
+                </form>
+            </div>
+            <div class="row">
+                <form method="POST" enctype="multipart/form-data" action="/app/settings">
+                    <div sec:authorize="hasAuthority('ADMIN')" class="form-group col">
+                        <h5>Select admins</h5>
+                        <div th:each="user : ${guild_users}">
+                            <input type="checkbox" th:checked="${user.role.name == 'ADMIN'}" id="admin_checkbox" name="admin_checkbox"
+                                   th:value="${user.username}" checked>
+                            <label th:for="${user.username}" th:text="${user.username}"></label>
+                        </div>
+                    </div>
+                    <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+                    <button type="submit" class="row btn btn-primary">Set!</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>

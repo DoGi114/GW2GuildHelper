@@ -23,7 +23,7 @@
                 <tr th:each="logItem: ${log}">
                     <td th:if="${logItem.user == logItem.kickedBy}" th:text="left"></td>
                     <td th:if="${logItem.user != logItem.kickedBy}" th:text="${logItem.type}"></td>
-                    <td th:text="${#temporals.format(logItem.time, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td th:text="${#temporals.format(logItem.time, 'yyyy-MM-dd HH:mm')}"></td>
                     <td th:text="${logItem.user}"></td>
                     <td th:if="${logItem.kickedBy}" th:text="${logItem.kickedBy}"></td>
                     <td th:if="${logItem.invitedBy}" th:text="${logItem.invitedBy}"></td>

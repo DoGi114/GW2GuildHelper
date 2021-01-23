@@ -22,16 +22,33 @@ function sortTable(n) {
             /* Check if the two rows should switch place,
             based on the direction, asc or desc: */
             if (dir == "asc") {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    // If so, mark as a switch and break the loop:
-                    shouldSwitch = true;
-                    break;
+                // console.log(x.nodeValue);
+                if(x.getAttribute("alt") === null) {
+                    if (x.innerText.toLowerCase() > y.innerText.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }else{
+                    if(parseInt(x.getAttribute("alt"), 10) > parseInt(y.getAttribute("alt"), 10)){
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
             } else if (dir == "desc") {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                    // If so, mark as a switch and break the loop:
-                    shouldSwitch = true;
-                    break;
+                if(x.getAttribute("alt") === null) {
+                    if (x.innerText.toLowerCase() < y.innerText.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }else{
+                    if(parseInt(x.getAttribute("alt"), 10) < parseInt(y.getAttribute("alt"), 10)){
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
             }
         }

@@ -6,11 +6,16 @@
         <form class="form-signin" name='registerForm' enctype="multipart/form-data" action="/register" method='POST'>
             <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
             <label for="inputUser" class="sr-only">Login</label>
-            <input type="text" id="inputUser" name="username" class="form-control firstInput" placeholder="login" required="" autofocus="">
+            <input type="text" id="inputUser" name="username" class="form-control firstInput" placeholder="Login" required="" autofocus="">
             <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" id="inputEmail" name="email" class="form-control firstInput" placeholder="email" required="" autofocus="">
-            <label for="inputGuildName" class="sr-only">Guild name</label>
-            <input type="text" id="inputGuildName" name="guild" class="form-control input" placeholder="Guild name" required="">
+            <input type="email" id="inputEmail" name="email" class="form-control firstInput" placeholder="Email" required="" autofocus="">
+            <label for="inputGuildNameCbx" class="sr-only">Guild name</label>
+            <select id="inputGuildNameCbx" name="guild-cbx" class="form-control input" placeholder="Guild name" required="">
+                <option value="None">Theres no guild like mine here</option>
+                <option th:each="guild: ${guilds}" th:value="${guild.name}" th:text="${guild.name}"></option>
+            </select>
+            <label for="inputGuildName" class="sr-only">Guild name if not present above</label>
+            <input type="text" id="inputGuildName" name="guild" class="form-control input" placeholder="If theres no guild in combobox">
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" name="password" class="form-control input" placeholder="Password" required="">
             <label for="inputPasswordConfirm" class="sr-only">Confirm password</label>

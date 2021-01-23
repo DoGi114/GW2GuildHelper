@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -27,12 +28,11 @@ public class GuildLogTask {
     private final LogRepository logRepository;
     private final LogMapper logMapper;
 
-    //todo:crona?
-    @Scheduled(fixedRate = 3600000)
+    @Scheduled(cron = "0 0/10 * * * *")
+//    @Async
     public void getGuildLog(){
-
-        List<Guild> userList = guildRepository.findAll();
-        for(Guild guild : userList) {
+        List<Guild> guildList = guildRepository.findAll();
+        for(Guild guild : guildList) {
             String api = "https://api.guildwars2.com/v2/guild/" + guild.getGuildId() + "/log?access_token=" + guild.getLeaderApiKey();
             RestTemplate restTemplate = new RestTemplate();
 
@@ -57,6 +57,37 @@ public class GuildLogTask {
                 if(exception.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
                     log.error("API is not responding!");
                 }
+            }
+        }
+    }
+
+    //TODO: Not working?
+    public void getGuildLog(Guild guild){
+        String api = "https://api.guildwars2.com/v2/guild/" + guild.getGuildId() + "/log?access_token=" + guild.getLeaderApiKey();
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            ResponseEntity<LogPojo[]> response =
+                    restTemplate.getForEntity(
+                            api,
+                            LogPojo[].class);
+
+            LogPojo[] logPojos = response.getBody();
+            //TODO: Assert not null
+            for (LogPojo logPojo : logPojos) {
+                Log logItem = logMapper.map(logPojo, guild);
+                if(logRepository.findById(logPojo.getId()).isEmpty()) {
+                    logRepository.save(logItem);
+                    log.info(logItem);
+                }
+            }
+        }catch (HttpClientErrorException exception){
+            if(exception.getStatusCode() == HttpStatus.UNAUTHORIZED){
+                log.error("Failed to log in guild " + guild.getName() + " due to bad access_token");
+            }
+        }catch (HttpServerErrorException exception){
+            if(exception.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR){
+                log.error("API is not responding!");
             }
         }
     }

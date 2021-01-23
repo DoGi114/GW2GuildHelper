@@ -15,19 +15,19 @@
                     </th>
                     <th class="th-sm">Icon
                     </th>
-                    <th onclick="sortTable(2)" class="th-sm">Item
+                    <th onclick="sortTable(3)" class="th-sm">Item
                     </th>
-                    <th onclick="sortTable(3)" class="th-sm">Count
+                    <th onclick="sortTable(4)" class="th-sm">Count
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="logItem: ${log}">
-                    <td th:text="${#temporals.format(logItem.time, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td th:text="${#temporals.format(logItem.time, 'yyyy-MM-dd HH:mm')}"></td>
                     <td th:text="${logItem.user}"></td>
                     <td><img th:attr="src=${logItem.item.icon},title=${logItem.item.name},alt=${logItem.item.icon}" class="icon32" /></td>
                     <td th:text="${logItem.item.getName()}"></td>
-                    <td th:text="${logItem.count}"></td>
+                    <td th:alt="${logItem.count}" th:text="${logItem.count}"></td>
                 </tr>
             </tbody>
         </table>

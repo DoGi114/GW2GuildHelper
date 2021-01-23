@@ -38,12 +38,12 @@ public class MailService {
         sendEmail(from, subject, to, content);
     }
 
-    public void sendPassword(User user){
+    public void sendPasswordReseted(User user){
         Email from = new Email(emailFrom);
         String subject = "Welcome to GW2GuildHelper!";
         Email to = new Email(user.getEmail());
-        //TODO: better content! + Decrypt password?
-        Content content = new Content("text/plain", "Welcome " + user.getUsername() + "!\n" + "Click this link to reset the password: <a href=\"http://www.sendgrid.com\">Click!</a>");
+        //TODO: better content!
+        Content content = new Content("text/plain", "Welcome " + user.getUsername() + "!\n" + "password has been reseted!");
         sendEmail(from, subject, to, content);
     }
 
@@ -56,10 +56,6 @@ public class MailService {
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sendGridApi.api(request);
-
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
         }catch (IOException e){
             log.error("Error while sending mail to " + to.getEmail());
         }

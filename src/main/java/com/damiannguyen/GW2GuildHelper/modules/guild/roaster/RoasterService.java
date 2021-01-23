@@ -1,6 +1,7 @@
 package com.damiannguyen.GW2GuildHelper.modules.guild.roaster;
 
 import com.damiannguyen.GW2GuildHelper.core.StashOperation;
+import com.damiannguyen.GW2GuildHelper.core.helpers.LogHelper;
 import com.damiannguyen.GW2GuildHelper.core.security.UserHelper;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
 import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
@@ -57,59 +58,15 @@ public class RoasterService {
         List<Log> resultList = new ArrayList<>();
         Guild guild = userHelper.getUser().getGuild();
         List<Log> allByOperationAndGuildAndUser = logRepository.findAllByOperationAndGuildAndUser(StashOperation.DEPOSIT.toString(), guild, username);
-        //TODO:Enum
-        List<Log> allByTypeAndGuildAndUser = logRepository.findAllByTypeAndGuildAndUser("Treasury", guild, username);
+        List<Log> allByTypeAndGuildAndUser = logRepository.findAllByTypeAndGuildAndUser(StashOperation.TREASURY.toString(), guild, username);
         List<Log> allByUser = Stream.concat(allByTypeAndGuildAndUser.stream(), allByOperationAndGuildAndUser.stream()).collect(Collectors.toList());
-        return AddUpDuplicatedLogs(resultList, allByUser);
+        return LogHelper.AddUpDuplicatedLogs(resultList, allByUser);
     }
 
     public List<Log> getAccountWithdraws(String username){
         List<Log> resultList = new ArrayList<>();
         Guild guild = userHelper.getUser().getGuild();
         List<Log> allByOperationAndGuildAndUser = logRepository.findAllByOperationAndGuildAndUser(StashOperation.WITHDRAW.toString(), guild, username);
-        return AddUpDuplicatedLogs(resultList, allByOperationAndGuildAndUser);
-    }
-
-    private List<Log> AddUpDuplicatedLogs(List<Log> resultList, List<Log> allByOperationAndGuildAndUser) {
-        for(Log log : allByOperationAndGuildAndUser){
-            Log updateLog;
-
-            if(log.getItem().getId() != 0){
-                if(resultList.stream().anyMatch(resultLog -> (resultLog.getItem().equals(log.getItem())))){
-                    updateLog = resultList.stream().filter(resultLog -> resultLog.getItem().equals(log.getItem())).findFirst().orElseThrow();
-                    updateLog.setCount(updateLog.getCount() + log.getCount());
-                }else{
-                    resultList.add(log);
-                }
-            }else{
-                if(resultList.stream().anyMatch(resultLog -> (resultLog.getItem().getId().equals(0L)))){
-                    updateLog = resultList.stream().filter(resultLog -> resultLog.getItem().getId().equals(log.getItem().getId())).findFirst().orElseThrow();
-                    updateLog.setCoins(updateLog.getCoins() + log.getCoins());
-                    System.out.println(updateLog.getCoins());
-                }else{
-                    resultList.add(log);
-                }
-            }
-
-//            if(resultList.stream().anyMatch(resultLog -> (resultLog.getItem().equals(log.getItem())))){
-//                Log updateLog = resultList.stream().filter(resultLog -> resultLog.getItem().equals(log.getItem())).findFirst().orElseThrow();
-//                updateLog.setCount(updateLog.getCount() + log.getCount());
-//            }else if(( log.getCoins() > 0 )){
-//                Log updateLog;
-//                if(!resultList.stream().anyMatch(resultLog -> resultLog.getId().equals(0) )){
-//                    updateLog = new Log();
-//                    updateLog.setId(0L);
-//                    resultList.add(updateLog);
-//                }else {
-//                    updateLog = resultList.stream().filter(resultLog -> resultLog.getCoins() > 0).findFirst().orElseThrow();
-//                }
-//                updateLog.setCoins(updateLog.getCoins() + log.getCoins());
-//                System.out.println(updateLog.getCoins());
-//            }else{
-//                resultList.add(log);
-//            }
-        }
-
-        return resultList;
+        return LogHelper.AddUpDuplicatedLogs(resultList, allByOperationAndGuildAndUser);
     }
 }

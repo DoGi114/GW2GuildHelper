@@ -6,7 +6,7 @@
         <form class="form-signin" name='loginForm' enctype="multipart/form-data" action="/login" method='POST'>
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label for="inputUser" class="sr-only">Login</label>
-            <input type="text" id="inputUser" name="username" class="form-control firstInput" placeholder="login" required="" autofocus="">
+            <input type="text" id="inputUser" name="username" class="form-control firstInput" placeholder="Login" required="" autofocus="">
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" name="password" class="form-control lastInput" placeholder="Password" required="">
             <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
@@ -15,11 +15,10 @@
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            <div  th:if="${loginError}" class="error">
+            <div th:if="${loginError}" class="error">
                 <p>Wrong user or password.</p>
                 <p>Dont remember it? Click here: </p>
-<!--                TODO:dont pass parameter, redirect to another webpage -->
-                <a  th:href="@{/remind(username = ${username})}">Reset password!</a>
+                <a  th:href="@{/reset-password}">Reset password!</a>
             </div>
             <a th:if="${reminded}">Check your email!</a>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

@@ -47,6 +47,6 @@ public class UserService {
     }
 
     public void remindPassword(String username) {
-        mailService.sendPassword(userRepository.findByUsername(username));
+        mailService.sendPasswordReseted(userRepository.findByUsername(username));
     }
 }

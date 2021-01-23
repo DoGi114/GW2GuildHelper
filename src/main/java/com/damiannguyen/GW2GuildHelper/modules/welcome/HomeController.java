@@ -7,13 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class WelcomeController {
-    private final WelcomeService welcomeService;
+public class HomeController {
+    private final HomeService homeService;
 
-    @GetMapping({"/app/welcome", "/"})
+    @GetMapping({"/app/home", "/"})
     public String getWelcome(Model model){
-        return "app/welcome";
+        return "app/home";
     }
 
+    @GetMapping({"/app/refresh"})
+    public String getRefresh(Model model){
+        homeService.loadLog();
+        //TODO: Dont redirect!!!
+        return "";
+    }
 
 }

@@ -7,8 +7,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav mr-auto">
+<!--                    Refreshing data?-->
                     <li class="nav-item">
-                        <a class="nav-link" href="/app/welcome">Refresh data!</a>
+                        <a class="nav-link" href="/app/refresh">Refresh data!</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/app/home">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roaster</a>
@@ -27,6 +31,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bank</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="/app/guildbank/log">Log</a>
+                            <a class="dropdown-item" href="/app/guildbank/gold-summary">Gold summary</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -38,7 +43,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item user">
                         Logged user: <span sec:authentication="name"></span>
                     </li>
                 </ul>

@@ -49,19 +49,35 @@ public class Log {
 
         StringBuilder stringBuilder = new StringBuilder();
         int tempCoins = coins;
+        if (coins  > 0) {
+            if (tempCoins / 10000 > 0) {
+                stringBuilder.append(tempCoins / 10000).append("g");
+                tempCoins = tempCoins % 10000;
+            }
 
-        if(tempCoins / 10000 > 0){
-            stringBuilder.append(tempCoins/10000).append("g");
-            tempCoins = tempCoins % 10000;
-        }
+            if (tempCoins / 100 > 0) {
+                stringBuilder.append(tempCoins / 100).append("s");
+                tempCoins = tempCoins % 100;
+            }
 
-        if(tempCoins / 100 > 0){
-            stringBuilder.append(tempCoins/100).append("s");
-            tempCoins = tempCoins % 100;
-        }
+            if (tempCoins > 0) {
+                stringBuilder.append(tempCoins).append("c");
+            }
+        }else{
+            stringBuilder.append("-");
+            if (tempCoins / -10000 > 0) {
+                stringBuilder.append(tempCoins / -10000).append("g");
+                tempCoins = tempCoins % 10000;
+            }
 
-        if(tempCoins > 0) {
-            stringBuilder.append(tempCoins).append("c");
+            if (tempCoins / -100 > 0) {
+                stringBuilder.append(tempCoins / -100).append("s");
+                tempCoins = tempCoins % 100;
+            }
+
+            if (tempCoins <= 0) {
+                stringBuilder.append(-tempCoins).append("c");
+            }
         }
 
         return stringBuilder.toString();

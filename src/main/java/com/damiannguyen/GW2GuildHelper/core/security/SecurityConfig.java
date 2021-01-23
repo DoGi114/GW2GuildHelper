@@ -37,17 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/resources/**", "/register", "/register-error", "/remind", "/reminded").permitAll()
+                    .antMatchers("/resources/**", "/register", "/register-error", "/reset-password").permitAll()
                     .antMatchers("/security/api").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/app/welcome", true)
+                    .defaultSuccessUrl("/app/home", true)
                     .failureUrl("/login-error")
                     .permitAll()
                 .and()
-                    .rememberMe()
+                    .rememberMe() //TODO: Not working?
                     .key("uniqueAndSecret")
                 .and()
                     .logout()

@@ -3,19 +3,19 @@
     <head th:replace="app/fragments/head::template"/>
     <body>
         <div th:replace="app/fragments/menu::template"></div>
-        <h2>API Settings</h2>
-        <div class="row justify-content-center">
+        <div class="container">
             <form method="POST" enctype="multipart/form-data" action="/app/settings/api">
+                <h5 class="row">Change API</h5>
                 <div class="form-group row">
                     <label for="guild-leader-api">Guild leader API:</label>
-                    <input id="guild-leader-api" type="text" class="form-control col-lg-6" name="personal_api" th:value="${personal_api}" placeholder="Guild leader API">
+                    <input id="guild-leader-api" type="text" class="form-control col-xl-12" name="personal_api" th:value="${personal_api}" placeholder="Guild leader API">
                 </div>
                 <div class="form-group row">
                     <label for="guild-id">Guild ID:</label>
                     <input type="text" id="guild-id" class="form-control col-xl-12" name="guild_api" th:value="${guild_api}" placeholder="Guild ID">
                 </div>
                 <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
-                <button type="submit" class="btn btn-primary">Set!</button>
+                <button type="submit" class="form-group row btn btn-primary">Set!</button>
             </form>
         </div>
     </body>

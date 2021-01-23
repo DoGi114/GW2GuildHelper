@@ -2,6 +2,7 @@ package com.damiannguyen.GW2GuildHelper.modules.guild.log;
 
 import com.damiannguyen.GW2GuildHelper.core.StashOperation;
 import com.damiannguyen.GW2GuildHelper.modules.guild.Guild;
+import com.damiannguyen.GW2GuildHelper.modules.guild.items.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface LogRepository extends JpaRepository<Log, Long> {
 //    List<Log> findAllByOperationInAndGuild(Set<String> operations, Guild guild);
     List<Log> findAllByOperationAndGuildAndUser(String operation, Guild guild, String user);
     List<Log> findAllByTypeAndGuildAndUser(String type, Guild guild, String user);
+    List<Log> findAllByOperationAndItemAndGuild(String operation, Item item, Guild guild);
+    List<Log> findAllByOperationAndItemAndGuildAndUser(String operation, Item item, Guild guild, String user);
 }
