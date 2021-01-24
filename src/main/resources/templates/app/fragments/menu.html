@@ -7,12 +7,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav mr-auto">
-<!--                    Refreshing data?-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" href="/app/refresh">Refresh data!</a>-->
-<!--                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link" href="/app/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/app/refresh">Refresh!</a>
                     </li>
                     <li sec:authorize="hasAnyAuthority('CONFIRMED', 'ADMIN')" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roaster</a>

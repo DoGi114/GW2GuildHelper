@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.test.annotation.Timed;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -62,6 +64,8 @@ public class GuildLogTask {
     }
 
     //TODO: Not working?
+    @Timed(millis = 120L)
+    @Transactional(timeout = 120)
     public void getGuildLog(Guild guild){
         String api = "https://api.guildwars2.com/v2/guild/" + guild.getGuildId() + "/log?access_token=" + guild.getLeaderApiKey();
         RestTemplate restTemplate = new RestTemplate();
@@ -76,11 +80,9 @@ public class GuildLogTask {
             //TODO: Assert not null
             for (LogPojo logPojo : logPojos) {
                 Log logItem = logMapper.map(logPojo, guild);
-                if(logRepository.findById(logPojo.getId()).isEmpty()) {
-                    logRepository.save(logItem);
-                    log.info(logItem);
-                }
+                logRepository.save(logItem);
             }
+            log.info("Guild " + guild.getName() + " updated!");
         }catch (HttpClientErrorException exception){
             if(exception.getStatusCode() == HttpStatus.UNAUTHORIZED){
                 log.error("Failed to log in guild " + guild.getName() + " due to bad access_token");

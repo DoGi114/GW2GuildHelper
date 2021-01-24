@@ -1,0 +1,17 @@
+runtime: java11
+env: standard
+
+instance_class: F4
+
+env_variables:
+  SPRING_PROFILES_ACTIVE: prod
+
+handlers:
+  - url: /.*
+    script: auto
+    secure: always
+    redirect_http_response_code: 301
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 1

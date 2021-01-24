@@ -16,10 +16,9 @@ public class HomeController {
     }
 
     @GetMapping({"/app/refresh"})
-    public void getRefresh(Model model){
-        homeService.loadLog();
-        //TODO: Dont redirect!!!
-//        return "";
+    public String getRefresh(Model model){
+        model.addAttribute("code", homeService.loadLog());
+        return "app/refresh";
     }
 
 }

@@ -99,8 +99,8 @@ public class SettingsController {
         User user = userHelper.getUser();
         if(userService.isPasswordSame(user.getPassword(), currentPassword)){
             if(newPassword.equals(confirmNewPassword)) {
-                user.setPassword(newPassword);
-                user.setPasswordConfirm(confirmNewPassword);
+                user.setPassword(encoder.encode(newPassword));
+                user.setPasswordConfirm(encoder.encode(confirmNewPassword));
                 userRepository.save(user);
                 redirectAttributes.addFlashAttribute("confirmation", "Password has been changed!");
             }else{
